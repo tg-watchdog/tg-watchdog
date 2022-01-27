@@ -19,6 +19,7 @@ bot.start((ctx) => ctx.reply('Welcome'))
 bot.on('chat_join_request', async ctx => {
   try {
     if (ctx.chat.id !== process.env.CHAT_ID) {
+      console.log("not the right chat")
       return
     }
     ctx.telegram.sendMessage(
