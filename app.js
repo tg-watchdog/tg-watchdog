@@ -18,7 +18,9 @@ bot.telegram.setWebhook(`https://${process.env.DOMAIN}/${process.env.SECRET}`)
 bot.start((ctx) => ctx.reply('Welcome'))
 bot.on('chat_join_request', async ctx => {
   try {
-    // Verify that the user is in the database of verified users
+    if (ctx.chat.id !== process.env.CHAT_ID) {
+      return
+    }
     ctx.telegram.sendMessage(
       ctx.from.id,
       `你好，我是群组 ${ctx.chat.title} 的看门狗 🐶！\n你需要完成人机验证才能入群。点击以下链接，到浏览器完成验证。`,
@@ -34,13 +36,6 @@ bot.on('chat_join_request', async ctx => {
         }
       }
     )
-    // await verifyUser(ctx.from.id)
-    // Approve join request
-    /* await ctx.approveChatJoinRequest(ctx.chat.id, ctx.from.id)
-    await ctx.reply(
-      'You are welcome to our exclusive group,'
-        + 'now you can chat with other members of the group'
-    ) */
   } catch (e) {
     await ctx.reply('Something has gone wrong!!')
   }
@@ -51,7 +46,7 @@ bot.on('chat_join_request', async ctx => {
 const app = new Koa()
 app.use(koaBody())
 app.use(async (ctx, next) => {
-  ctx.set("Access-Control-Allow-Origin", "*")
+  ctx.set("Access-Control-Allow-Origin", process.env.FRONTEND_ADDRESS)
   await next()
 })
 
@@ -63,13 +58,16 @@ router.get('/', async ctx => {
 router.post('/verify-captcha', async ctx => {
   try {
     func.verify_login(ctx.request.body.tglogin)
+    console.log("tglogin completed")
     const token = ctx.request.body.token
     await func.verify_captcha(token)
     ctx.response.status = 204
+    bot.telegram.approveChatJoinRequest(process.env.CHAT_ID, ctx.request.body.tglogin.id)
   } catch (e) {
-    e = JSON.parse(e.message)
-    ctx.response.status = e.code || 500
-    ctx.response.body = { message: e.message || "服务器错误" }
+    console.log(e)
+    const err = JSON.parse(e.message)
+    ctx.response.status = err.code || 500
+    ctx.response.body = { message: err.message || "服务器错误" }
   }
 })
 
