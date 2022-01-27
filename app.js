@@ -29,7 +29,7 @@ bot.on('chat_join_request', async ctx => {
           inline_keyboard: [[{
             text: `开始验证`,
             login_url: {
-              url: `https://tgwatchdogvue.dev.astrianzheng.com`,
+              url: `https://${process.env.FRONTEND_ADDRESS}`,
               request_write_access: true
             }
           }]]
