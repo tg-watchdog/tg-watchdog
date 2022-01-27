@@ -14,5 +14,8 @@
     "koa-router": "^10.1.1",
     "safe-compare": "^1.1.4",
     "telegraf": "^4.6.0"
+  },
+  "scripts": {
+    "start": "node app.js"
   }
 }
