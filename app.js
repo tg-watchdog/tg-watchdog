@@ -18,7 +18,7 @@ bot.telegram.setWebhook(`https://${process.env.DOMAIN}/${process.env.SECRET}`)
 bot.start((ctx) => ctx.reply('Welcome'))
 bot.on('chat_join_request', async ctx => {
   try {
-    if (ctx.chat.id !== process.env.CHAT_ID) {
+    if (`${ctx.chat.id}` !== `${process.env.CHAT_ID}`) {
       console.log("not the right chat")
       console.log(ctx.chat.id)
       console.log(process.env.CHAT_ID)
