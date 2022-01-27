@@ -61,14 +61,12 @@ router.get('/', async ctx => {
   })
 })
 router.post('/verify-captcha', async ctx => {
-  console.log(ctx.request.body)
-})
-
-router.post('/verify-login', async ctx => {
   try {
-    func.verify_login(ctx.request.body)
+    func.verify_login(ctx.request.body.tglogin)
+    const token = ctx.request.body.token
+    await func.verify_captcha(token)
     ctx.response.status = 204
-  } catch(e) {
+  } catch (e) {
     e = JSON.parse(e.message)
     ctx.response.status = e.code || 500
     ctx.response.body = { message: e.message || "服务器错误" }
