@@ -50,6 +50,17 @@ router.post('/verify-captcha', async ctx => {
   console.log(ctx.request.body)
 })
 
+router.post('/verify-login', async ctx => {
+  try {
+    func.verify_login(ctx.request.body)
+    ctx.response.status = 204
+  } catch(e) {
+    e = JSON.parse(e.message)
+    ctx.response.status = e.code || 500
+    ctx.response.body = { message: e.message || "服务器错误" }
+  }
+})
+
 // Koa config
 app.use(router.routes())
 app.use(async (ctx, next) => {
