@@ -40,7 +40,7 @@ bot.on('chat_join_request', async ctx => {
     await ctx.reply('Something has gone wrong!!')
   }
 })
-bot.command('/chatid', async ctx => {
+bot.command('chatid', async ctx => {
   ctx.reply(`本会话的 ID：${ctx.chat.id}`)
 })
 
