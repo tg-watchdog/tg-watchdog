@@ -71,7 +71,7 @@ router.post('/verify-captcha', async ctx => {
     ctx.response.body = { message: err.message || "服务器错误" }
   }
 })
-router.options('/*', async ctx => {
+router.options('/verify-captcha', async ctx => {
   ctx.response.status = 204
   ctx.response
 })
