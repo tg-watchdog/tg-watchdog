@@ -26,7 +26,7 @@ bot.on('chat_join_request', async ctx => {
           inline_keyboard: [[{
             text: `开始验证`,
             login_url: {
-              url: `https://${process.env.FRONTEND_ADDRESS}/?chat_id=${ctx.chat.id}`,
+              url: `${process.env.FRONTEND_ADDRESS}/?chat_id=${ctx.chat.id}`,
               request_write_access: true
             }
           }]]
@@ -46,8 +46,7 @@ bot.command('chatid', async ctx => {
 const app = new Koa()
 app.use(koaBody())
 app.use(async (ctx, next) => {
-  console.log(`https://${process.env.FRONTEND_ADDRESS}`)
-  ctx.set("Access-Control-Allow-Origin", "https://" + process.env.FRONTEND_ADDRESS)
+  ctx.set("Access-Control-Allow-Origin", process.env.FRONTEND_ADDRESS)
   await next()
 })
 
