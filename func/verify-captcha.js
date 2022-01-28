@@ -2,7 +2,7 @@ const { verify } = require('hcaptcha')
 
 module.exports = async (token) => {
   try {
-    let data = await verify("0x96Aa8DAd3095f4ff9548d47561b4c8533dd2F9E5", token)
+    let data = await verify(process.env.CAPTCHA_SECRET, token)
     if (!data.success) {
       throw new Error(JSON.stringify({code: 400, message: '未能通过人机验证'}))
     }
