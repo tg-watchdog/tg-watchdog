@@ -48,6 +48,7 @@ app.use(koaBody())
 app.use(async (ctx, next) => {
   ctx.set("Access-Control-Allow-Origin", process.env.FRONTEND_ADDRESS)
   ctx.set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
+  ctx.set("Access-Control-Allow-Headers", "Content-Type")
   await next()
 })
 
