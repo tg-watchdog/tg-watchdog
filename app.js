@@ -70,7 +70,7 @@ router.post('/verify-captcha', async ctx => {
     ctx.response.body = { message: err.message || "服务器错误" }
   }
 })
-router.option('*', async ctx => {
+router.options('*', async ctx => {
   ctx.response.status = 204
   ctx.response.set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
 })
