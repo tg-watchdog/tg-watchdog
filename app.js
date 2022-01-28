@@ -47,6 +47,7 @@ const app = new Koa()
 app.use(koaBody())
 app.use(async (ctx, next) => {
   ctx.set("Access-Control-Allow-Origin", process.env.FRONTEND_ADDRESS)
+  ctx.set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
   await next()
 })
 
@@ -70,9 +71,9 @@ router.post('/verify-captcha', async ctx => {
     ctx.response.body = { message: err.message || "服务器错误" }
   }
 })
-router.options('*', async ctx => {
+router.options('/*', async ctx => {
   ctx.response.status = 204
-  ctx.response.set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
+  ctx.response
 })
 
 // Koa config
