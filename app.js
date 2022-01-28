@@ -46,6 +46,7 @@ bot.command('chatid', async ctx => {
 const app = new Koa()
 app.use(koaBody())
 app.use(async (ctx, next) => {
+  console.log(`https://${process.env.FRONTEND_ADDRESS}`)
   ctx.set("Access-Control-Allow-Origin", `https://${process.env.FRONTEND_ADDRESS}`)
   await next()
 })
