@@ -15,7 +15,7 @@ const bot = new Telegraf(token)
 const secretPath = `/${process.env.SECRET}`
 bot.telegram.setWebhook(`https://${process.env.DOMAIN}/${process.env.SECRET}`)
 
-bot.start((ctx) => ctx.reply('Welcome'))
+bot.start((ctx) => ctx.reply(`你好，我是私有群看门狗！🐶\n我可以帮助私有群（Private group）对新成员进行人机验证，保证广告加不进来哒。\n访问 https://github.com/Astrian/tg-watchdog 了解更多，或是点击 https://t.me/+rOpjXs3hYaEwY2U1 尝试入群以体验看门狗。`))
 bot.on('chat_join_request', async ctx => {
   try {
     ctx.telegram.sendMessage(
