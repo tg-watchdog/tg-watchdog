@@ -1,13 +1,21 @@
-const { verify } = require('hcaptcha')
+const axios = require('axios')
 
-module.exports = async (token) => {
+module.exports = async (solution) => {
+  let data
   try {
-    let data = await verify(process.env.CAPTCHA_SECRET, token)
-    if (!data.success) {
-      throw new Error(JSON.stringify({code: 400, message: '未能通过人机验证'}))
-    }
+    data = await axios.post(
+      "https://api.friendlycaptcha.com/api/v1/siteverify",
+      {
+        solution,
+        secret: process.env.FC_API_KEY
+      }
+    )
   } catch(e) {
     console.log(e)
-    throw new Error(JSON.stringify(e.message).code || JSON.stringify({code: 400, message: 'hCaptcha 服务器出现错误'}))
+    throw new Error(JSON.stringify(e.message).code || JSON.stringify({code: 400, message: 'FriendlyCaptcha 服务器出现错误'}))
+  }
+  if (!data.data.success) {
+    console.log(data)
+    throw new Error(JSON.stringify({code: 400, message: '未能通过人机验证'}))
   }
 }
