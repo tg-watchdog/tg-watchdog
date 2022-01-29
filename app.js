@@ -60,7 +60,6 @@ router.get('/', async ctx => {
 router.post('/verify-captcha', async ctx => {
   try {
     func.verify_login(ctx.request.body.tglogin)
-    console.log("tglogin completed")
     const token = ctx.request.body.token
     await func.verify_captcha(token)
     ctx.response.status = 204
