@@ -15,7 +15,10 @@ const bot = new Telegraf(token)
 const secretPath = `/${process.env.SECRET}`
 bot.telegram.setWebhook(`https://${process.env.DOMAIN}/${process.env.SECRET}`)
 
-bot.start((ctx) => ctx.reply(`你好，我是私有群看门狗！🐶\n我可以帮助私有群（Private group）对新成员进行人机验证，保证广告加不进来哒。\n访问 https://github.com/Astrian/tg-watchdog 了解更多，或是点击 https://t.me/+rOpjXs3hYaEwY2U1 尝试入群以体验看门狗。`))
+bot.start((ctx) => {
+  console.log("msg recivied")
+  ctx.reply(`你好，我是私有群看门狗！🐶\n我可以帮助私有群（Private group）对新成员进行人机验证，保证广告加不进来哒。\n访问 https://github.com/Astrian/tg-watchdog 了解更多，或是点击 https://t.me/+rOpjXs3hYaEwY2U1 尝试入群以体验看门狗。`)
+})
 bot.on('chat_join_request', async ctx => {
   try {
     ctx.telegram.sendMessage(
@@ -25,9 +28,8 @@ bot.on('chat_join_request', async ctx => {
         reply_markup: {
           inline_keyboard: [[{
             text: `开始验证`,
-            login_url: {
-              url: `${process.env.FRONTEND_ADDRESS}/?chat_id=${ctx.chat.id}`,
-              request_write_access: true
+            web_app: {
+              url: `https://${process.env.FRONTEND_DOMAIN}/?chat_id=${ctx.chat.id}`
             }
           }]]
         }
@@ -46,7 +48,7 @@ bot.command('chatid', async ctx => {
 const app = new Koa()
 app.use(koaBody())
 app.use(async (ctx, next) => {
-  ctx.set("Access-Control-Allow-Origin", process.env.FRONTEND_ADDRESS)
+  ctx.set("Access-Control-Allow-Origin", `https://${process.env.FRONTEND_DOMAIN}`)
   ctx.set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
   ctx.set("Access-Control-Allow-Headers", "Content-Type")
   await next()
@@ -62,8 +64,9 @@ router.post('/verify-captcha', async ctx => {
     func.verify_login(ctx.request.body.tglogin)
     const token = ctx.request.body.token
     await func.verify_captcha(token)
+    const user_id = JSON.parse(ctx.request.body.tglogin.user).id
     ctx.response.status = 204
-    bot.telegram.approveChatJoinRequest(ctx.request.body.chat_id, ctx.request.body.tglogin.id)
+    bot.telegram.approveChatJoinRequest(ctx.request.body.chat_id, user_id)
   } catch (e) {
     console.log(e)
     const err = JSON.parse(e.message)

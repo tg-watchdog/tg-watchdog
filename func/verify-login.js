@@ -7,7 +7,7 @@ module.exports = (data) => {
 }
 
 function checkSignature ({ hash, ...data }) {
-  const secret = createHash('sha256').update(process.env.BOT_TOKEN).digest()
+  const secret = createHmac('sha256', "WebAppData").update(process.env.BOT_TOKEN).digest()
   const checkString = Object.keys(data)
     .sort()
     .map(k => (`${k}=${data[k]}`))
