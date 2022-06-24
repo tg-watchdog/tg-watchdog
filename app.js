@@ -3,21 +3,36 @@ const Koa = require('koa')
 const koaBody = require('koa-body')
 const safeCompare = require('safe-compare')
 const router = require('koa-router')()
+require('dotenv').config()
 
 const func = require('./func')
 
 // Bots
-const token = process.env.BOT_TOKEN
+const token = process.env.TGWD_TOKEN
 if (token === undefined) {
   throw new Error('BOT_TOKEN must be provided!')
 }
 const bot = new Telegraf(token)
-const secretPath = `/${process.env.SECRET}`
-bot.telegram.setWebhook(`https://${process.env.DOMAIN}/${process.env.SECRET}`)
+const secretPath = `/${process.env.TGWD_SECRET}`
+bot.telegram.setWebhook(`https://${process.env.TGWD_DOMAIN}/${process.env.TGWD_SECRET}`)
 
-bot.start((ctx) => {
+bot.start(async (ctx) => {
   console.log("msg recivied")
-  ctx.reply(`你好，我是私有群看门狗！🐶\n我可以帮助私有群（Private group）对新成员进行人机验证，保证广告加不进来哒。\n访问 https://github.com/Astrian/tg-watchdog 了解更多，或是点击 https://t.me/+rOpjXs3hYaEwY2U1 尝试入群以体验看门狗。`)
+  let me = await bot.telegram.getMe()
+  console.log(me.username)
+  ctx.reply(
+    `你好，我是私有群看门狗！🐶\n我可以帮助群组新成员进行人机验证，保证机器人广告加不进来哒。\n了解更多： https://github.com/Astrian/tg-watchdog \n体验看门狗 + 社群： https://t.me/tgwatchdog_chat \n信息更新频道： https://t.me/tgwatchdog_update`,
+    {
+      reply_markup: {
+        inline_keyboard: [[{
+          text: `将我设为群组管理员`,
+          url: `https://t.me/${me.username}?startgroup=start&admin=can_invite_users`
+        }]]
+      },
+      disable_web_page_preview: true
+    }
+  )
+  
 })
 bot.on('chat_join_request', async ctx => {
   try {
@@ -29,7 +44,7 @@ bot.on('chat_join_request', async ctx => {
           inline_keyboard: [[{
             text: `开始验证`,
             web_app: {
-              url: `https://${process.env.FRONTEND_DOMAIN}/?chat_id=${ctx.chat.id}`
+              url: `https://${process.env.TGWD_FRONTEND_DOMAIN}/?chat_id=${ctx.chat.id}`
             }
           }]]
         }
@@ -48,7 +63,7 @@ bot.command('chatid', async ctx => {
 const app = new Koa()
 app.use(koaBody())
 app.use(async (ctx, next) => {
-  ctx.set("Access-Control-Allow-Origin", `https://${process.env.FRONTEND_DOMAIN}`)
+  ctx.set("Access-Control-Allow-Origin", `https://${process.env.TGWD_FRONTEND_DOMAIN}`)
   ctx.set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
   ctx.set("Access-Control-Allow-Headers", "Content-Type")
   await next()
@@ -89,4 +104,4 @@ app.use(async (ctx, next) => {
   }
   return next()
 })
-app.listen(process.env.PORT)
+app.listen(process.env.TGWD_PORT)
