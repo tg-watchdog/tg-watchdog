@@ -30,10 +30,21 @@ const bot = new Bot<BotContext>(process.env.TGWD_TOKEN || "")
 bot.use(useFluent({ fluent, defaultLocale: "en"}))
 
 bot.command("start", async ctx => {
-  await ctx.reply(ctx.t("welcome"))
+  await ctx.reply(ctx.t("welcome"), {
+    disable_web_page_preview: true,
+    reply_markup: {
+      inline_keyboard: [[
+        {
+          text: ctx.t("setmeasadmin"),
+          url: `https://t.me/${ctx.me.username}?startgroup=start&admin=can_invite_users`
+        }
+      ]]
+    }
+  })
 })
 
 bot.catch(async err => {
+  print("Error detected while running the bot!")
   print(err)
 })
 

@@ -3,3 +3,4 @@ welcome = Hello! I am the watchdog for Telegram groups! 🐶
   Learm more: https://github.com/Astrian/tg-watchdog 
   Try + Community: https://t.me/tgwatchdog_chat 
   Channel: https://t.me/tgwatchdog_update
+setmeasadmin = Set me as group admin
