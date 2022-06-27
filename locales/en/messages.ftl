@@ -4,3 +4,4 @@ welcome = Hello! I am the watchdog for Telegram groups! 🐶
   Try + Community: https://t.me/tgwatchdog_chat 
   Channel: https://t.me/tgwatchdog_update
 setmeasadmin = Set me as group admin
+verifymessage = Your join request in {$groupname} is detected.

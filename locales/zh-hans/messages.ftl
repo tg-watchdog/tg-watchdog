@@ -4,3 +4,4 @@ welcome = 你好，我是 Telegram 群组看门狗！🐶
   体验看门狗 + 社群： https://t.me/tgwatchdog_chat
   信息更新频道： https://t.me/tgwatchdog_update
 setmeasadmin = 将我设为管理员
+verifymessage = 群组 {$groupname} 侦测到您的加入请求。

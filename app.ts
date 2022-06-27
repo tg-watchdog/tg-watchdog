@@ -43,6 +43,13 @@ bot.command("start", async ctx => {
   })
 })
 
+bot.on("chat_join_request", async ctx => {
+  bot.api.sendMessage(
+    ctx.from.id,
+    ctx.t("verifymessage", {groupname: ctx.chat.title})
+  )
+})
+
 bot.catch(async err => {
   print("Error detected while running the bot!")
   print(err)
