@@ -7,6 +7,7 @@ import utils from "./utils"
 import Koa from "koa"
 import Router from "koa-router"
 import KoaBody from "koa-body"
+import cors from "@koa/cors"
 import func from "./func"
 
 // Initialing
@@ -92,13 +93,11 @@ bot.start()
 // HTTP Requests
 const endpoint = new Koa()
 endpoint.use(KoaBody())
-endpoint.use(async (ctx, next) => {
-  print("request recived")
-  ctx.set("Access-Control-Allow-Origin", `https://${process.env.TGWD_FRONTEND_DOMAIN}`)
-  ctx.set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
-  ctx.set("Access-Control-Allow-Headers", "Content-Type")
-  await next()
-})
+endpoint.use(cors({
+  origin: `https://${process.env.TGWD_FRONTEND_DOMAIN}`,
+  allowMethods: ["POST", "GET", "OPTIONS"],
+  allowHeaders: ["Content-Type"]
+}))
 
 const router = new Router()
 router.get('/', async ctx => {
@@ -108,7 +107,8 @@ router.get('/', async ctx => {
 })
 router.post('/verify-captcha', async ctx => {
   try {
-    func.verifyLogin(ctx.request.body.tglogin)
+    print("verify captcha")
+    await func.verifyLogin()
     // const token = ctx.request.body.token
     // await func.verifyCaptcha()
     // const user_id = JSON.parse(ctx.request.body.tglogin.user).id
