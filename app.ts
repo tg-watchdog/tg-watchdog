@@ -4,7 +4,12 @@ import { Fluent } from "@moebius/fluent"
 import { FluentContextFlavor, useFluent } from "@grammyjs/fluent"
 import Debug from "debug"
 import utils from "./utils"
+import Koa from "koa"
+import Router from "koa-router"
+import KoaBody from "koa-body"
+import func from "./func"
 
+// Initialing
 const print = Debug("tgwd:app.ts")
 
 const fluent = new Fluent()
@@ -32,6 +37,11 @@ if (!process.env.TGWD_FRONTEND_DOMAIN) {
 if (!process.env.TGWD_SECRET) {
   throw(new Error("You must define TGWD_SECRET (signature secret) to use this bot."))
 }
+if (!process.env.TGWD_PORT) {
+  throw(new Error("You must define TGWD_PORT (endpoint port) to use this bot."))
+}
+
+// Bot part
 const bot = new Bot<BotContext>(process.env.TGWD_TOKEN || "")
 
 bot.use(useFluent({ fluent, defaultLocale: "en"}))
@@ -78,3 +88,43 @@ bot.catch(async err => {
 })
 
 bot.start()
+
+// HTTP Requests
+const endpoint = new Koa()
+endpoint.use(KoaBody())
+endpoint.use(async (ctx, next) => {
+  print("request recived")
+  ctx.set("Access-Control-Allow-Origin", `https://${process.env.TGWD_FRONTEND_DOMAIN}`)
+  ctx.set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
+  ctx.set("Access-Control-Allow-Headers", "Content-Type")
+  await next()
+})
+
+const router = new Router()
+router.get('/', async ctx => {
+  ctx.response.body = JSON.stringify({
+    hello: "world"
+  })
+})
+router.post('/verify-captcha', async ctx => {
+  try {
+    func.verifyLogin(ctx.request.body.tglogin)
+    // const token = ctx.request.body.token
+    // await func.verifyCaptcha()
+    // const user_id = JSON.parse(ctx.request.body.tglogin.user).id
+    
+    // bot.telegram.approveChatJoinRequest(ctx.request.body.chat_id, user_id)
+    ctx.response.status = 204
+  } catch (e) {
+    console.log(e)
+    // const err = JSON.parse(e.message)
+    ctx.response.status = 500
+    ctx.response.body = { message: "服务器错误" }
+  }
+})
+router.options('/verify-captcha', async ctx => {
+  ctx.response.status = 204
+  ctx.response
+})
+endpoint.use(router.routes())
+endpoint.listen(process.env.TGWD_PORT)
