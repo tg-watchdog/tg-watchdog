@@ -37,7 +37,7 @@
 <script>
 // @ is an alias to /src
 import axios from 'axios'
-    import VueFriendlyCaptcha from '@somushq/vue-friendly-captcha'
+import VueFriendlyCaptcha from '@somushq/vue-friendly-captcha'
 export default {
   name: 'Home',
   components: {
@@ -48,7 +48,6 @@ export default {
       loginStatus: 0,
       errmsg: "",
       sitekey: process.env.VUE_APP_SITEKEY,
-      back_domain: process.env.VUE_APP_API_DOMAIN,
       tglogin: {},
       userProfile: {},
       query: this.$route.query
@@ -60,7 +59,7 @@ export default {
       try {
         const {chat_id} = this.$route.query
         let tglogin = this.tglogin
-        await axios.post(`https://${process.env.VUE_APP_API_DOMAIN}/verify-captcha`, { token, tglogin, chat_id })
+        await axios.post(`/endpoints/verify-captcha`, { token, tglogin, chat_id })
         this.loginStatus = 2
         window.Telegram.WebApp.MainButton.show().setParams({ text: "结束" }).onClick(() => { window.Telegram.WebApp.close() })
       } catch(e) {
@@ -83,7 +82,7 @@ export default {
       this.$data.tglogin = initData
       this.$data.userProfile = JSON.parse(initData.user)
       this.loginStatus = 1
-      if ((this.query.timestamp + 180000) > new Date().getTime()) {
+      if ((parseInt(this.query.timestamp) + 180000) < new Date().getTime()) {
         this.loginStatus = -3
       }
     } else {
