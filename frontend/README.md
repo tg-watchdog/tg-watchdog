@@ -1,24 +1,4 @@
-# frontend
+# Telegram 看门狗
+适用于 Telegram 私有群（private groups）的验证机器人的前端页面仓库。
 
-## Project setup
-```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+具体说明请前往看门狗的 [后端仓库](https://github.com/Astrian/tg-watchdog)。
