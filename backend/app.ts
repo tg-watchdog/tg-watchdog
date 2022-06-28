@@ -120,6 +120,12 @@ router.post('/endpoints/verify-captcha', async ctx => {
       return
     }
 
+    if ((body.request_query.timestamp + 180000) < new Date().getTime()) {
+      ctx.response.status = 400
+      ctx.response.body = { message: "请求已超时" }
+      return
+    }
+
     await func.verifyLogin()
     // const token = ctx.request.body.token
     // await func.verifyCaptcha()
