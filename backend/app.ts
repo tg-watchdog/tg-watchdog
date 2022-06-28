@@ -100,12 +100,12 @@ endpoint.use(cors({
 }))
 
 const router = new Router()
-router.get('/', async ctx => {
+router.get('/endpoints', async ctx => {
   ctx.response.body = JSON.stringify({
     hello: "world"
   })
 })
-router.post('/verify-captcha', async ctx => {
+router.post('/endpoints/verify-captcha', async ctx => {
   try {
     print("verify captcha")
     await func.verifyLogin()
@@ -122,7 +122,7 @@ router.post('/verify-captcha', async ctx => {
     ctx.response.body = { message: "服务器错误" }
   }
 })
-router.options('/verify-captcha', async ctx => {
+router.options('/endpoints/verify-captcha', async ctx => {
   ctx.response.status = 204
   ctx.response
 })

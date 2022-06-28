@@ -12,16 +12,13 @@
     "vue": "^3.2.13"
   },
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.4.0",
-    "@typescript-eslint/parser": "^5.4.0",
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
-    "@vue/cli-plugin-typescript": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
-    "@vue/eslint-config-typescript": "^9.1.0",
     "eslint": "^7.32.0",
-    "eslint-plugin-vue": "^8.0.3",
-    "typescript": "~4.5.5"
+    "eslint-plugin-vue": "^8.0.3"
   },
   "eslintConfig": {
     "root": true,
@@ -30,11 +27,10 @@
     },
     "extends": [
       "plugin:vue/vue3-essential",
-      "eslint:recommended",
-      "@vue/typescript/recommended"
+      "eslint:recommended"
     ],
     "parserOptions": {
-      "ecmaVersion": 2020
+      "parser": "@babel/eslint-parser"
     },
     "rules": {}
   },
