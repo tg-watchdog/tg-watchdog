@@ -57,9 +57,8 @@ export default {
     async captchaVerify(token) {
       this.loginStatus = 3
       try {
-        const {chat_id} = this.$route.query
         let tglogin = this.tglogin
-        await axios.post(`/endpoints/verify-captcha`, { token, tglogin, chat_id })
+        await axios.post(`/endpoints/verify-captcha`, { token, tglogin, request_query: this.query })
         this.loginStatus = 2
         window.Telegram.WebApp.MainButton.show().setParams({ text: "结束" }).onClick(() => { window.Telegram.WebApp.close() })
       } catch(e) {
@@ -82,9 +81,9 @@ export default {
       this.$data.tglogin = initData
       this.$data.userProfile = JSON.parse(initData.user)
       this.loginStatus = 1
-      if ((parseInt(this.query.timestamp) + 180000) < new Date().getTime()) {
+      /* if ((parseInt(this.query.timestamp) + 180000) < new Date().getTime()) {
         this.loginStatus = -3
-      }
+      } */
     } else {
       this.loginStatus = -1
     }

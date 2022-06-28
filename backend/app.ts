@@ -67,6 +67,7 @@ bot.on("chat_join_request", async ctx => {
   const msgId = msg.message_id
   const signature = await utils.signature(msgId, ctx.chat.id, ctx.from.id, timestamp)
   const url = `https://${process.env.TGWD_FRONTEND_DOMAIN}/?chat_id=${ctx.chat.id}&msg_id=${msgId}&timestamp=${timestamp}&signature=${signature}`
+  print(url)
   bot.api.editMessageText(
     ctx.from.id, msgId,
     `${ctx.t("verify_message", {groupname: ctx.chat.title})}\n${ctx.t("verify_info")}`,
@@ -101,13 +102,24 @@ endpoint.use(cors({
 
 const router = new Router()
 router.get('/endpoints', async ctx => {
+  print(await utils.signature(44, -1001320638783, 54785179, 1656425097585))
   ctx.response.body = JSON.stringify({
     hello: "world"
   })
 })
 router.post('/endpoints/verify-captcha', async ctx => {
   try {
-    print("verify captcha")
+    const body = <Query>ctx.request.body
+    const user = <TGUser>(JSON.parse(body.tglogin.user))
+
+    // Verify signature
+    const calculatedHash = await utils.signature(body.request_query.msg_id, body.request_query.chat_id, user.id, body.request_query.timestamp)
+    if (calculatedHash !== body.request_query.signature) {
+      ctx.response.status = 400
+      ctx.response.body = { message: "非法请求" }
+      return
+    }
+
     await func.verifyLogin()
     // const token = ctx.request.body.token
     // await func.verifyCaptcha()
@@ -128,3 +140,26 @@ router.options('/endpoints/verify-captcha', async ctx => {
 })
 endpoint.use(router.routes())
 endpoint.listen(process.env.TGWD_PORT)
+
+type Query = {
+  token: string,
+  tglogin: {
+    query_id: string,
+    user: string,
+    auth_date: number,
+    hash: string
+  },
+  request_query: {
+    chat_id: number,
+    msg_id: number,
+    timestamp: number,
+    signature: string
+  }
+}
+
+type TGUser = {
+  id: number,
+  first_name: string,
+  last_name: string,
+  username: string
+}
