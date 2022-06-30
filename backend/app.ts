@@ -133,7 +133,7 @@ router.post('/endpoints/verify-captcha', async ctx => {
       ctx.response.status = 400
       ctx.response.body = { message: "REQUEST_OVERTIMED" }
       bot.api.deleteMessage(user.id, body.request_query.msg_id)
-      bot.api.declineChatJoinRequest(user.id, body.request_query.msg_id)
+      bot.api.declineChatJoinRequest(body.request_query.chat_id, user.id)
       return
     }
 
@@ -144,14 +144,15 @@ router.post('/endpoints/verify-captcha', async ctx => {
       ctx.response.status = captchaResult.error?.code || 500
       ctx.response.body = { message: captchaResult.error?.alias || "SERVER_UNAVAILABLE" }
       bot.api.deleteMessage(user.id, body.request_query.msg_id)
-      bot.api.declineChatJoinRequest(user.id, body.request_query.msg_id)
+      bot.api.declineChatJoinRequest(body.request_query.chat_id, user.id)
+      return
     }
     
     // Accept user's join request
     bot.api.approveChatJoinRequest(body.request_query.chat_id, user.id)
 
     // Delete verify message
-    bot.api.deleteMessage(user.id, body.request_query.msg_id)
+    // bot.api.deleteMessage(user.id, body.request_query.msg_id)
 
     ctx.response.status = 204
   } catch (e) {
