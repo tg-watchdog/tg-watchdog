@@ -25,7 +25,10 @@
     "typescript": "^4.7.4"
   },
   "scripts": {
-    "dev": "DEBUG=tgwd:* nodemon app.ts"
+    "dev": "DEBUG=tgwd:* nodemon app.ts",
+    "start": "tsc --build && NODE_ENV=production pm2 start dist/app.js --name tg-watchdog",
+    "stop": "pm2 stop tg-watchdog && pm2 delete tg-watchdog",
+    "clean": "rm -rf dist"
   },
   "devDependencies": {
     "nodemon": "^2.0.18",
