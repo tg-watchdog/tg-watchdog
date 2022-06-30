@@ -42,6 +42,9 @@ if (!process.env.TGWD_SECRET) {
 if (!process.env.TGWD_PORT) {
   throw(new Error("You must define TGWD_PORT (endpoint port) to use this bot."))
 }
+if (!process.env.TGWD_FC_API_KEY) {
+  throw(new Error("You must define TGWD_FC_API_KEY (FriendCaptcha API Key) to use this bot."))
+}
 
 // Bot part
 const bot = new Bot<BotContext>(process.env.TGWD_TOKEN || "")
@@ -152,7 +155,7 @@ router.post('/endpoints/verify-captcha', async ctx => {
     bot.api.approveChatJoinRequest(body.request_query.chat_id, user.id)
 
     // Delete verify message
-    // bot.api.deleteMessage(user.id, body.request_query.msg_id)
+    bot.api.deleteMessage(user.id, body.request_query.msg_id)
 
     ctx.response.status = 204
   } catch (e) {

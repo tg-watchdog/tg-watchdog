@@ -10,7 +10,7 @@ export default async (solution: string): Promise<{ success: Boolean, error?: { c
       "https://api.friendlycaptcha.com/api/v1/siteverify",
       {
         solution,
-        secret: process.env.FC_API_KEY
+        secret: process.env.TGWD_FC_API_KEY
       }
     )
   } catch(e) {
