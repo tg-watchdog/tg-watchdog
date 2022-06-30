@@ -1,6 +1,6 @@
 {
   "name": "tg-watchdog",
-  "version": "2206.02",
+  "version": "2206.02.0",
   "main": "app.ts",
   "repository": "https://github.com/Astrian/tg-watchdog",
   "license": "MIT",
