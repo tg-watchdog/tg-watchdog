@@ -25,10 +25,6 @@
         <div class="header_text">出现错误</div>
         <div class="descripction_text">服务器返回了一个错误：{{errmsg}}<br>请重新申请加群并完成验证。</div>
       </div>
-      <div v-else-if="loginStatus === -3">
-        <div class="header_text">过期啦！</div>
-        <div class="descripction_text">这个验证请求已超过其有效期。<br>请重新申请加群并完成验证。</div>
-      </div>
     </div>
   </div>
 </template>

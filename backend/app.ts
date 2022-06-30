@@ -121,19 +121,20 @@ router.post('/endpoints/verify-captcha', async ctx => {
       return
     }
 
-    // Verify vaild time
-    if ((body.request_query.timestamp + 180000) < new Date().getTime()) {
-      ctx.response.status = 400
-      ctx.response.body = { message: "REQUEST_OVERTIMED" }
-      
-      return
-    }
-
     // Verify telegram login
     const loginResult = await func.verifyLogin(body.tglogin)
     if (!loginResult) {
       ctx.response.status = 401
       ctx.response.body = { message: "TELEGRAM_ACCOUNT_INFO_ERROR" }
+    }
+
+    // Verify vaild time
+    if ((body.request_query.timestamp + 180000) < new Date().getTime()) {
+      ctx.response.status = 400
+      ctx.response.body = { message: "REQUEST_OVERTIMED" }
+      bot.api.deleteMessage(user.id, body.request_query.msg_id)
+      bot.api.declineChatJoinRequest(user.id, body.request_query.msg_id)
+      return
     }
 
     // Verify captcha challenge
@@ -142,10 +143,16 @@ router.post('/endpoints/verify-captcha', async ctx => {
     if (!captchaResult.success) {
       ctx.response.status = captchaResult.error?.code || 500
       ctx.response.body = { message: captchaResult.error?.alias || "SERVER_UNAVAILABLE" }
+      bot.api.deleteMessage(user.id, body.request_query.msg_id)
+      bot.api.declineChatJoinRequest(user.id, body.request_query.msg_id)
     }
     
     // Accept user's join request
     bot.api.approveChatJoinRequest(body.request_query.chat_id, user.id)
+
+    // Delete verify message
+    bot.api.deleteMessage(user.id, body.request_query.msg_id)
+
     ctx.response.status = 204
   } catch (e) {
     console.log(e)
