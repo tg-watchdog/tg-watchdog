@@ -30,7 +30,6 @@
         <div class="descripction_text">这个验证请求已超过其有效期。<br>请重新申请加群并完成验证。</div>
       </div>
     </div>
-    <div v-else>{{back_domain}}</div>
   </div>
 </template>
 
