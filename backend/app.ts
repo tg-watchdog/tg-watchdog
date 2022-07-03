@@ -1,14 +1,15 @@
+/// <reference path = "types.d.ts" /> 
 import Dotenv from "dotenv"
 import { Bot, Context } from "grammy"
 import { Fluent } from "@moebius/fluent"
 import { FluentContextFlavor, useFluent } from "@grammyjs/fluent"
 import Debug from "debug"
-import utils from "./utils"
 import Koa from "koa"
 import Router from "koa-router"
 import KoaBody from "koa-body"
 import cors from "@koa/cors"
 import func from "./func"
+
 
 // Initialing
 const print = Debug("tgwd:app.ts")
@@ -41,6 +42,9 @@ if (!process.env.TGWD_SECRET) {
 if (!process.env.TGWD_PORT) {
   throw(new Error("You must define TGWD_PORT (endpoint port) to use this bot."))
 }
+if (!process.env.TGWD_FC_API_KEY) {
+  throw(new Error("You must define TGWD_FC_API_KEY (FriendCaptcha API Key) to use this bot."))
+}
 
 // Bot part
 const bot = new Bot<BotContext>(process.env.TGWD_TOKEN || "")
@@ -65,8 +69,9 @@ bot.on("chat_join_request", async ctx => {
   const msg = await bot.api.sendMessage(ctx.from.id, `${ctx.t("verify_message", {groupname: ctx.chat.title})}\n${ctx.t("verify_loading")}`)
   const timestamp = new Date().getTime()
   const msgId = msg.message_id
-  const signature = await utils.signature(msgId, ctx.chat.id, ctx.from.id, timestamp)
+  const signature = await func.signature(msgId, ctx.chat.id, ctx.from.id, timestamp)
   const url = `https://${process.env.TGWD_FRONTEND_DOMAIN}/?chat_id=${ctx.chat.id}&msg_id=${msgId}&timestamp=${timestamp}&signature=${signature}`
+  print(url)
   bot.api.editMessageText(
     ctx.from.id, msgId,
     `${ctx.t("verify_message", {groupname: ctx.chat.title})}\n${ctx.t("verify_info")}`,
@@ -100,31 +105,70 @@ endpoint.use(cors({
 }))
 
 const router = new Router()
-router.get('/', async ctx => {
+router.get('/endpoints', async ctx => {
+  print(await func.signature(44, -1001320638783, 54785179, 1656425097585))
   ctx.response.body = JSON.stringify({
     hello: "world"
   })
 })
-router.post('/verify-captcha', async ctx => {
+router.post('/endpoints/verify-captcha', async ctx => {
   try {
-    print("verify captcha")
-    await func.verifyLogin()
-    // const token = ctx.request.body.token
-    // await func.verifyCaptcha()
-    // const user_id = JSON.parse(ctx.request.body.tglogin.user).id
+    const body = <Query>ctx.request.body
+    const user = <TGUser>(JSON.parse(body.tglogin.user))
+
+    // Verify signature
+    const calculatedHash = await func.signature(body.request_query.msg_id, body.request_query.chat_id, user.id, body.request_query.timestamp)
+    if (calculatedHash !== body.request_query.signature) {
+      ctx.response.status = 400
+      ctx.response.body = { message: "INVALID_REQUEST" }
+      return
+    }
+
+    // Verify telegram login
+    const loginResult = await func.verifyLogin(body.tglogin)
+    if (!loginResult) {
+      ctx.response.status = 401
+      ctx.response.body = { message: "TELEGRAM_ACCOUNT_INFO_ERROR" }
+    }
+
+    // Verify vaild time
+    if ((body.request_query.timestamp + 180000) < new Date().getTime()) {
+      ctx.response.status = 400
+      ctx.response.body = { message: "REQUEST_OVERTIMED" }
+      bot.api.deleteMessage(user.id, body.request_query.msg_id)
+      bot.api.declineChatJoinRequest(body.request_query.chat_id, user.id)
+      return
+    }
+
+    // Verify captcha challenge
+    const token = ctx.request.body.token
+    const captchaResult = await func.verifyCaptcha(token)
+    if (!captchaResult.success) {
+      ctx.response.status = captchaResult.error?.code || 500
+      ctx.response.body = { message: captchaResult.error?.alias || "SERVER_UNAVAILABLE" }
+      bot.api.deleteMessage(user.id, body.request_query.msg_id)
+      bot.api.declineChatJoinRequest(body.request_query.chat_id, user.id)
+      return
+    }
     
-    // bot.telegram.approveChatJoinRequest(ctx.request.body.chat_id, user_id)
+    // Accept user's join request
+    bot.api.approveChatJoinRequest(body.request_query.chat_id, user.id)
+
+    // Delete verify message
+    bot.api.deleteMessage(user.id, body.request_query.msg_id)
+
     ctx.response.status = 204
   } catch (e) {
     console.log(e)
     // const err = JSON.parse(e.message)
     ctx.response.status = 500
-    ctx.response.body = { message: "服务器错误" }
+    ctx.response.body = { message: "SERVER_UNAVAILABLE" }
   }
 })
-router.options('/verify-captcha', async ctx => {
+router.options('/endpoints/verify-captcha', async ctx => {
   ctx.response.status = 204
   ctx.response
 })
 endpoint.use(router.routes())
 endpoint.listen(process.env.TGWD_PORT)
+
