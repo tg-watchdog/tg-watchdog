@@ -21,7 +21,7 @@ bot.start(async (ctx) => {
   let me = await bot.telegram.getMe()
   console.log(me.username)
   ctx.reply(
-    `你好，我是私有群看门狗！🐶\n我可以帮助群组新成员进行人机验证，保证机器人广告加不进来哒。\n了解更多： https://github.com/Astrian/tg-watchdog \n体验看门狗 + 社群： https://t.me/tgwatchdog_chat \n信息更新频道： https://t.me/tgwatchdog_update`,
+    `你好，我是 Telegram 群组看门狗！🐶\n我可以帮助群组新成员进行人机验证，保证机器人广告加不进来哒。\n了解更多： https://github.com/Astrian/tg-watchdog \n体验看门狗 + 社群： https://t.me/tgwatchdog_chat \n信息更新频道： https://t.me/tgwatchdog_update`,
     {
       reply_markup: {
         inline_keyboard: [[{
@@ -75,6 +75,7 @@ router.get('/', async ctx => {
   })
 })
 router.post('/verify-captcha', async ctx => {
+  console.log("captcha verify request")
   try {
     func.verify_login(ctx.request.body.tglogin)
     const token = ctx.request.body.token
