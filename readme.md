@@ -9,7 +9,7 @@ This is a Telegram bot used for anti-abuse from Telegram groupchats.
 
 - Use private chat to candidates, instead of send verify messages in groupchats.
 - Use CAPTCHA and web app, complete verification in just clicks.
-- Privacy first - no data will be saved and shared.
+- Privacy first - no data will be saved or shared.
 - Self-deployment supported.
 
 ## How to use
