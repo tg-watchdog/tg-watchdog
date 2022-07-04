@@ -9,7 +9,7 @@ This is a Telegram bot used for anti-abuse from Telegram groupchats.
 
 - Use private chat to candidates, instead of send verify messages in groupchats.
 - Use CAPTCHA and web app, complete verification in just clicks.
-- Private first - no database to store any data.
+- Privacy first - no data will be saved and shared.
 - Self-deployment supported.
 
 ## How to use
@@ -23,6 +23,6 @@ More detailed guidence [here](https://tgwatchdog.astrian.moe/help/enable-in-grou
 Checkout [Handbook part](https://tgwatchdog.astrian.moe/zh/handbook/) of the document of Telegram Watchdog (now in Simplified Chinese, more languages on the way)!
 
 ## More & Community
-- [Documents](https://tgwatchdog.astrian.moe/handbook/)
+- [Documents](https://tgwatchdog.astrian.moe/)
 - [Try the bot + community](https://t.me/tgwatchdog_chat)
 - [Activity update channel](https://t.me/tgwatchdog_update)
