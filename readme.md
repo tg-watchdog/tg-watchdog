@@ -17,12 +17,12 @@ This is a Telegram bot used for anti-abuse from Telegram groupchats.
 - Enable new member approval in groupchats
 - That’s it! Share your group and Telegram Watchdog will work for you when have new candidates
 
-More detailed guidence [here](https://tgwatchdog.astrian.moe/help/enable-in-groupchats/) (now in Simplified Chinese, more languages on the way).
+More detailed guidence [here](https://tgwatchdog.astrian.moe/help/enable-in-groupchats/).
 
 ## Technology Details
 Checkout [Handbook part](https://tgwatchdog.astrian.moe/handbook/) of the document of Telegram Watchdog (now in Simplified Chinese, more languages on the way)!
 
 ## More & Community
-- [Documents](https://tgwatchdog.astrian.moe/handbook/) (now in Simplified Chinese, more languages on the way)
+- [Documents](https://tgwatchdog.astrian.moe/handbook/)
 - [Try the bot + community](https://t.me/tgwatchdog_chat)
 - [Activity update channel](https://t.me/tgwatchdog_update)
