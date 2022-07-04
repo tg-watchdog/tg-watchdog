@@ -20,7 +20,7 @@ This is a Telegram bot used for anti-abuse from Telegram groupchats.
 More detailed guidence [here](https://tgwatchdog.astrian.moe/help/enable-in-groupchats/).
 
 ## Technology Details
-Checkout [Handbook part](https://tgwatchdog.astrian.moe/handbook/) of the document of Telegram Watchdog (now in Simplified Chinese, more languages on the way)!
+Checkout [Handbook part](https://tgwatchdog.astrian.moe/zh/handbook/) of the document of Telegram Watchdog (now in Simplified Chinese, more languages on the way)!
 
 ## More & Community
 - [Documents](https://tgwatchdog.astrian.moe/handbook/)
