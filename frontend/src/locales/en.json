@@ -1,5 +1,9 @@
 {
+  "LOGIN_REMINDER": "Verifing your login…",
   "VERIFING_BANNER": "Are you human?",
   "VERIFING_SUBTITLE": "Complete CAPTCHA below to join the group chat.",
+  "PASSED_TITLE": "Verify completed",
+  "PASSED_DESC": "You can find the group chat you just joined in chat list.<br>If you cannot see it, try restart your Telegram client.",
+  "PLEASEWAIT": "Please wait…",
   "LANGUAGE_TEST": "You are now using English (US) language environment."
 }

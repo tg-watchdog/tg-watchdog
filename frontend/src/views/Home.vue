@@ -4,7 +4,7 @@
       <img src="~@/assets/robot.png" id="header_caption_image" />
       <!-- div class="greetings">{{ `${userProfile.first_name}${userProfile.last_name ? ` ${userProfile.last_name}` : ''}` }}，你好</div -->
       <div v-if="loginStatus === 0">
-        <div class="descripction">正在验证登录……</div>
+        <div class="descripction">{{ $t("LOGIN_REMINDER") }}</div>
       </div>
       <div v-else-if="loginStatus === 1">
         <div class="header_text">{{ $t('VERIFING_BANNER') }}</div>
@@ -15,11 +15,11 @@
         </div>
       </div>
       <div v-else-if="loginStatus === 2">
-        <div class="header_text">验证已通过</div>
-        <div class="descripction_text">您可以在聊天列表找到您刚才加入的群组。<br>如果无法找到群聊，建议尝试重启应用。</div>
+        <div class="header_text">{{ $t("PASSED_TITLE") }}</div>
+        <div class="descripction_text" v-html="$t('PASSED_DESC')"></div>
       </div>
       <div v-else-if="loginStatus === 3">
-        <div class="descripction_text">请稍等……</div>
+        <div class="descripction_text">{{ $t("PLEASEWAIT") }}</div>
       </div>
       <div v-else-if="loginStatus === -2">
         <div class="header_text">出现错误</div>
