@@ -123,9 +123,10 @@ router.post('/endpoints/verify-captcha', async ctx => {
     if (!loginResult) {
       ctx.response.status = 401
       ctx.response.body = { message: "TELEGRAM_ACCOUNT_INFO_ERROR" }
+      return
     }
 
-    // Verify vaild time
+    // Verify valid time
     if ((body.request_query.timestamp + 180000) < new Date().getTime()) {
       ctx.response.status = 400
       ctx.response.body = { message: "REQUEST_OVERTIMED" }
@@ -138,8 +139,8 @@ router.post('/endpoints/verify-captcha', async ctx => {
     const token = ctx.request.body.token
     const captchaResult = await func.verifyCaptcha(token)
     if (!captchaResult.success) {
-      ctx.response.status = captchaResult.error?.code || 500
-      ctx.response.body = { message: captchaResult.error?.alias || "SERVER_UNAVAILABLE" }
+      ctx.response.status = captchaResult.error?.code || 400
+      ctx.response.body = { message: captchaResult.error?.alias || "CAPTCHA_NOT_PASSED" }
       bot.api.deleteMessage(user.id, body.request_query.msg_id)
       bot.api.declineChatJoinRequest(body.request_query.chat_id, user.id)
       return
