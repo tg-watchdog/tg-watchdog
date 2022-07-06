@@ -22,8 +22,8 @@
         <div class="descripction_text">{{ $t("PLEASEWAIT") }}</div>
       </div>
       <div v-else-if="loginStatus === -2">
-        <div class="header_text">出现错误</div>
-        <div class="descripction_text">服务器返回了一个错误：{{errmsg}}<br>请重新申请加群并完成验证。</div>
+        <div class="header_text">{{ $t("ERROR_TITLE") }}</div>
+        <div class="descripction_text" v-html="$t('ERROR_DESC', { errmsg })"></div>
       </div>
     </div>
     <div v-else>{{ $t("LANGUAGE_TEST") }}</div>
@@ -60,9 +60,9 @@ export default {
       } catch(e) {
         this.loginStatus = -2
         if (e.response) {
-          this.errmsg = e.response.data.message || "未知错误"
+          this.errmsg = this.$t(`ERRCODE_${e.response.data.message}`) || this.$t("ERRCODE_UNKNOWN")
         } else {
-          this.errmsg = "未知错误"
+          this.errmsg = this.$t("ERRCODE_UNKNOWN")
         }
       }
     }
