@@ -7,8 +7,8 @@
         <div class="descripction">正在验证登录……</div>
       </div>
       <div v-else-if="loginStatus === 1">
-        <div class="header_text">是真人吗？</div>
-        <div class="descripction_text">请完成以下人机验证，以加入群组。</div>
+        <div class="header_text">{{ $t('VERIFING_BANNER') }}</div>
+        <div class="descripction_text">{{ $t('VERIFING_SUBTITLE') }}</div>
         <!--vue-hcaptcha :sitekey="sitekey" @verify="captchaVerify" /-->
         <div class="captcha_area">
           <vue-friendly-captcha :sitekey="sitekey" @done="captchaVerify" />
