@@ -92,6 +92,10 @@ bot.catch(async err => {
   print(err)
 })
 
+bot.command("language", async ctx => {
+  ctx.reply(ctx.message?.from.language_code || "No language code detected")
+})
+
 bot.start()
 
 // HTTP Requests
