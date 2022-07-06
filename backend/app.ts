@@ -123,7 +123,8 @@ router.post('/endpoints/verify-captcha', async ctx => {
     }
 
     // Verify telegram login
-    const loginResult = await func.verifyLogin(body.tglogin)
+    const loginResult = await func.verifyLogin(body.tglogin, process.env.TGWD_TOKEN || "")
+    print(body.tglogin)
     if (!loginResult) {
       ctx.response.status = 401
       ctx.response.body = { message: "TELEGRAM_ACCOUNT_INFO_ERROR" }
