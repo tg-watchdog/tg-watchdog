@@ -4,28 +4,29 @@
       <img src="~@/assets/robot.png" id="header_caption_image" />
       <!-- div class="greetings">{{ `${userProfile.first_name}${userProfile.last_name ? ` ${userProfile.last_name}` : ''}` }}，你好</div -->
       <div v-if="loginStatus === 0">
-        <div class="descripction">正在验证登录……</div>
+        <div class="descripction">{{ $t("LOGIN_REMINDER") }}</div>
       </div>
       <div v-else-if="loginStatus === 1">
-        <div class="header_text">是真人吗？</div>
-        <div class="descripction_text">请完成以下人机验证，以加入群组。</div>
+        <div class="header_text">{{ $t('VERIFING_BANNER') }}</div>
+        <div class="descripction_text">{{ $t('VERIFING_SUBTITLE') }}</div>
         <!--vue-hcaptcha :sitekey="sitekey" @verify="captchaVerify" /-->
         <div class="captcha_area">
           <vue-friendly-captcha :sitekey="sitekey" @done="captchaVerify" />
         </div>
       </div>
       <div v-else-if="loginStatus === 2">
-        <div class="header_text">验证已通过</div>
-        <div class="descripction_text">您可以在聊天列表找到您刚才加入的群组。<br>如果无法找到群聊，建议尝试重启应用。</div>
+        <div class="header_text">{{ $t("PASSED_TITLE") }}</div>
+        <div class="descripction_text" v-html="$t('PASSED_DESC')"></div>
       </div>
       <div v-else-if="loginStatus === 3">
-        <div class="descripction_text">请稍等……</div>
+        <div class="descripction_text">{{ $t("PLEASEWAIT") }}</div>
       </div>
       <div v-else-if="loginStatus === -2">
-        <div class="header_text">出现错误</div>
-        <div class="descripction_text">服务器返回了一个错误：{{errmsg}}<br>请重新申请加群并完成验证。</div>
+        <div class="header_text">{{ $t("ERROR_TITLE") }}</div>
+        <div class="descripction_text" v-html="$t('ERROR_DESC', { errmsg })"></div>
       </div>
     </div>
+    <div v-else>{{ $t("LANGUAGE_TEST") }}<br>{{ lang }}</div>
   </div>
 </template>
 
@@ -45,7 +46,8 @@ export default {
       sitekey: process.env.VUE_APP_SITEKEY,
       tglogin: {},
       userProfile: {},
-      query: this.$route.query
+      query: this.$route.query,
+      lang: navigator.language
     }
   },
   methods: {
@@ -59,9 +61,9 @@ export default {
       } catch(e) {
         this.loginStatus = -2
         if (e.response) {
-          this.errmsg = e.response.data.message || "未知错误"
+          this.errmsg = this.$t(`ERRCODE_${e.response.data.message}`) || this.$t("ERRCODE_UNKNOWN")
         } else {
-          this.errmsg = "未知错误"
+          this.errmsg = this.$t("ERRCODE_UNKNOWN")
         }
       }
     }

@@ -1,0 +1,17 @@
+{
+  "LOGIN_REMINDER": "正在验证登录……",
+  "VERIFING_BANNER": "是真人吗？",
+  "VERIFING_SUBTITLE": "完成以下 CAPTCHA 以加入群组。",
+  "PASSED_TITLE": "验证已通过",
+  "PASSED_DESC": "您可以在聊天列表找到您刚才加入的群组。<br>如果无法找到群聊，建议尝试重启应用。",
+  "PLEASEWAIT": "请稍等……",
+  "ERROR_TITLE": "糟糕……",
+  "ERROR_DESC": "发生错误：{errmsg}<br>请重新申请加群并完成验证。",
+  "ERRCODE_UNKNOWN": "未知错误",
+  "ERRCODE_INVALID_REQUEST": "请求不合规",
+  "ERRCODE_TELEGRAM_ACCOUNT_INFO_ERROR": "Telegram 帐户信息无效",
+  "ERRCODE_REQUEST_OVERTIMED": "已超验证有效期",
+  "ERRCODE_SERVER_UNAVAILABLE": "验证服务或在维护",
+  "ERRCODE_CAPTCHA_NOT_PASSED": "未通过 CAPTCHA",
+  "LANGUAGE_TEST": "您现在正在使用简体中文环境。"
+}
