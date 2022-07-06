@@ -26,7 +26,7 @@
         <div class="descripction_text" v-html="$t('ERROR_DESC', { errmsg })"></div>
       </div>
     </div>
-    <div v-else>{{ $t("LANGUAGE_TEST") }}</div>
+    <div v-else>{{ $t("LANGUAGE_TEST") }}<br>{{ lang }}</div>
   </div>
 </template>
 
@@ -46,7 +46,8 @@ export default {
       sitekey: process.env.VUE_APP_SITEKEY,
       tglogin: {},
       userProfile: {},
-      query: this.$route.query
+      query: this.$route.query,
+      lang: navigator.language
     }
   },
   methods: {
