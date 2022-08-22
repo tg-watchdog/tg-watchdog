@@ -28,4 +28,4 @@ Check out [Handbook part](https://tgwatchdog.astrian.moe/zh/handbook/) of the do
 - [Activity update channel](https://t.me/tgwatchdog_update)
 
 # Acknowledgements
-See: [Acknowledgements](/acknowledgements)
+See: [Acknowledgements](/acknowledgements.md)
