@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d9e53fd3-635b-472f-8d75-ca46afc79c42" name="Changes" comment="Changes">
-      <change afterPath="$PROJECT_DIR$/CONTRIBUTING.md" afterDir="false" />
+    <list default="true" id="d9e53fd3-635b-472f-8d75-ca46afc79c42" name="Changes" comment="Add contributing guidelines.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,8 +62,17 @@
       <workItem from="1660302463819" duration="729000" />
       <workItem from="1660794685687" duration="39000" />
       <workItem from="1661127310472" duration="1127000" />
-      <workItem from="1661129730895" duration="636000" />
+      <workItem from="1661129730895" duration="1250000" />
+      <workItem from="1661132667173" duration="88000" />
     </task>
+    <task id="LOCAL-00001" summary="Add contributing guidelines.">
+      <created>1661131404384</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1661131404384</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -91,6 +100,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Add contributing guidelines." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add contributing guidelines." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
