@@ -25,6 +25,22 @@ const initialLocales = async () =>{
     locales: "en",
     filePath: ["./locales/en/messages.ftl"]
   })
+  await fluent.addTranslation({
+    locales: "zh-hant",
+    filePath: ["./locales/zh-Hant/messages.ftl"]
+  })
+  await fluent.addTranslation({
+    locales: "zh-hant-hk",
+    filePath: ["./locales/zh-Hant-HK/messages.ftl"]
+  })
+  await fluent.addTranslation({
+    locales: "ja",
+    filePath: ["./locales/ja/messages.ftl"]
+  })
+  await fluent.addTranslation({
+    locales: "ru",
+    filePath: ["./locales/ru/messages.ftl"]
+  })
 }
 initialLocales()
 export type BotContext = ( & Context & FluentContextFlavor )
