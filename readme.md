@@ -26,3 +26,6 @@ Check out [Handbook part](https://tgwatchdog.astrian.moe/zh/handbook/) of the do
 - [Documents](https://tgwatchdog.astrian.moe/)
 - [Try the bot + community](https://t.me/tgwatchdog_chat)
 - [Activity update channel](https://t.me/tgwatchdog_update)
+
+# Acknowledgements
+See: [Acknowledgements](/acknowledgements)
