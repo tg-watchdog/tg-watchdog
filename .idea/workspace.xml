@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d9e53fd3-635b-472f-8d75-ca46afc79c42" name="Changes" comment="Add contributing guidelines.">
+    <list default="true" id="d9e53fd3-635b-472f-8d75-ca46afc79c42" name="Changes" comment="Workspaces configuration file modify">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/locales/zh-hans/messages.ftl" beforeDir="false" afterPath="$PROJECT_DIR$/backend/locales/zh_Hans/messages.ftl" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +64,13 @@
       <workItem from="1660794685687" duration="39000" />
       <workItem from="1661127310472" duration="1127000" />
       <workItem from="1661129730895" duration="1250000" />
-      <workItem from="1661132667173" duration="88000" />
+      <workItem from="1661132667173" duration="2015000" />
+      <workItem from="1661156504375" duration="28000" />
+      <workItem from="1661159645555" duration="1307000" />
+      <workItem from="1661203070861" duration="371000" />
+      <workItem from="1661203519341" duration="801000" />
+      <workItem from="1661204330680" duration="748000" />
+      <workItem from="1661248946376" duration="1799000" />
     </task>
     <task id="LOCAL-00001" summary="Add contributing guidelines.">
       <created>1661131404384</created>
@@ -72,7 +79,28 @@
       <option name="project" value="LOCAL" />
       <updated>1661131404384</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Fixed localisation issues">
+      <created>1661132778802</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1661132778802</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Fix i18n issue&#10;The fallback language which should be applied when user use the language not supported by Telegram Watchdog">
+      <created>1661203622409</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1661203622409</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Workspaces configuration file modify">
+      <created>1661203677151</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1661203677151</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -89,7 +117,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="master" />
+                        <option value="dev" />
                       </list>
                     </value>
                   </entry>
@@ -103,7 +131,10 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add contributing guidelines." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add contributing guidelines." />
+    <MESSAGE value="Fixed localisation issues" />
+    <MESSAGE value="Fix i18n issue&#10;The fallback language which should be applied when user use the language not supported by Telegram Watchdog" />
+    <MESSAGE value="Workspaces configuration file modify" />
+    <option name="LAST_COMMIT_MESSAGE" value="Workspaces configuration file modify" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

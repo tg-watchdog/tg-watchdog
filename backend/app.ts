@@ -18,20 +18,21 @@ Dotenv.config()
 
 const initialLocales = async () =>{
   await fluent.addTranslation({
-    locales: "zh-hans",
-    filePath: ["./locales/zh-hans/messages.ftl"]
+    locales: "zh_Hans",
+    filePath: ["./locales/zh_Hans/messages.ftl"]
   })
   await fluent.addTranslation({
     locales: "en",
-    filePath: ["./locales/en/messages.ftl"]
+    filePath: ["./locales/en/messages.ftl"],
+    isDefault: true
   })
   await fluent.addTranslation({
-    locales: "zh-hant",
-    filePath: ["./locales/zh-Hant/messages.ftl"]
+    locales: "zh_Hant",
+    filePath: ["./locales/zh_Hant/messages.ftl"]
   })
   await fluent.addTranslation({
-    locales: "zh-hant-hk",
-    filePath: ["./locales/zh-Hant-HK/messages.ftl"]
+    locales: "zh_Hant_HK",
+    filePath: ["./locales/zh_Hant_HK/messages.ftl"]
   })
   await fluent.addTranslation({
     locales: "ja",
@@ -42,7 +43,8 @@ const initialLocales = async () =>{
     filePath: ["./locales/ru/messages.ftl"]
   })
 }
-initialLocales()
+(async () => { await initialLocales() })()
+
 export type BotContext = ( & Context & FluentContextFlavor )
 
 if (!process.env.TGWD_TOKEN) {
@@ -62,57 +64,61 @@ if (!process.env.TGWD_FC_API_KEY) {
 }
 
 // Bot part
-const bot = new Bot<BotContext>(process.env.TGWD_TOKEN || "")
+const bot = new Bot<BotContext>(process.env.TGWD_TOKEN || "");
 
-bot.use(useFluent({ fluent, defaultLocale: "en"}))
+(async () => { bot.use(useFluent({ fluent, defaultLocale: "en"})) })();
 
-bot.command("start", async ctx => {
-  await ctx.reply(ctx.t("welcome_body"), {
-    disable_web_page_preview: true,
-    reply_markup: {
-      inline_keyboard: [[
-        {
-          text: ctx.t("welcome_setmeasadmin"),
-          url: `https://t.me/${ctx.me.username}?startgroup=start&admin=can_invite_users`
-        }
-      ]]
-    }
-  })
-})
-
-bot.on("chat_join_request", async ctx => {
-  const msg = await bot.api.sendMessage(ctx.from.id, `${ctx.t("verify_message", {groupname: ctx.chat.title})}\n${ctx.t("verify_loading")}`)
-  const timestamp = new Date().getTime()
-  const msgId = msg.message_id
-  const signature = await func.signature(msgId, ctx.chat.id, ctx.from.id, timestamp)
-  const url = `https://${process.env.TGWD_FRONTEND_DOMAIN}/?chat_id=${ctx.chat.id}&msg_id=${msgId}&timestamp=${timestamp}&signature=${signature}`
-  print(url)
-  bot.api.editMessageText(
-    ctx.from.id, msgId,
-    `${ctx.t("verify_message", {groupname: ctx.chat.title})}\n${ctx.t("verify_info")}`,
-    {
+(async () => {
+  bot.command("start", async ctx => {
+    await ctx.reply(ctx.t("welcome_body"), {
+      disable_web_page_preview: true,
       reply_markup: {
-        inline_keyboard: [[{
-          text: ctx.t("verify_btn"),
-          web_app: {
-            url: url
+        inline_keyboard: [[
+          {
+            text: ctx.t("welcome_setmeasadmin"),
+            url: `https://t.me/${ctx.me.username}?startgroup=start&admin=can_invite_users`
           }
-        }]]
+        ]]
       }
-    }
-  )
-})
+    })
+  })
+})();
 
-bot.catch(async err => {
+(async () => {
+  bot.on("chat_join_request", async ctx => {
+    const msg = await bot.api.sendMessage(ctx.from.id, `${ctx.t("verify_message", {groupname: ctx.chat.title})}\n${ctx.t("verify_loading")}`)
+    const timestamp = new Date().getTime()
+    const msgId = msg.message_id
+    const signature = await func.signature(msgId, ctx.chat.id, ctx.from.id, timestamp)
+    const url = `https://${process.env.TGWD_FRONTEND_DOMAIN}/?chat_id=${ctx.chat.id}&msg_id=${msgId}&timestamp=${timestamp}&signature=${signature}`
+    print(url)
+    await bot.api.editMessageText(
+      ctx.from.id, msgId,
+      `${ctx.t("verify_message", {groupname: ctx.chat.title})}\n${ctx.t("verify_info")}`,
+      {
+        reply_markup: {
+          inline_keyboard: [[{
+            text: ctx.t("verify_btn"),
+            web_app: {
+              url: url
+            }
+          }]]
+        }
+      }
+    )
+  })
+})();
+
+(async () => { bot.catch(async err => {
   print("Error detected while running the bot!")
   print(err)
-})
+}) })();
 
-bot.command("language", async ctx => {
-  ctx.reply(ctx.message?.from.language_code || "No language code detected")
-})
+(async () => { await bot.command("language", async ctx => {
+  await ctx.reply(ctx.message?.from.language_code || "No language code detected")
+}) })();
 
-bot.start()
+(async () => { await bot.start() })()
 
 // HTTP Requests
 const endpoint = new Koa()
@@ -151,8 +157,8 @@ router.post('/endpoints/verify-captcha', async ctx => {
     if ((body.request_query.timestamp + 180000) < new Date().getTime()) {
       ctx.response.status = 400
       ctx.response.body = { message: "REQUEST_OVERTIMED" }
-      bot.api.deleteMessage(user.id, body.request_query.msg_id)
-      bot.api.declineChatJoinRequest(body.request_query.chat_id, user.id)
+      await bot.api.deleteMessage(user.id, body.request_query.msg_id)
+      await bot.api.declineChatJoinRequest(body.request_query.chat_id, user.id)
       return
     }
 
@@ -162,16 +168,16 @@ router.post('/endpoints/verify-captcha', async ctx => {
     if (!captchaResult.success) {
       ctx.response.status = captchaResult.error?.code || 400
       ctx.response.body = { message: captchaResult.error?.alias || "CAPTCHA_NOT_PASSED" }
-      bot.api.deleteMessage(user.id, body.request_query.msg_id)
-      bot.api.declineChatJoinRequest(body.request_query.chat_id, user.id)
+      await bot.api.deleteMessage(user.id, body.request_query.msg_id)
+      await bot.api.declineChatJoinRequest(body.request_query.chat_id, user.id)
       return
     }
     
     // Accept user's join request
-    bot.api.approveChatJoinRequest(body.request_query.chat_id, user.id)
+    await bot.api.approveChatJoinRequest(body.request_query.chat_id, user.id)
 
     // Delete verify message
-    bot.api.deleteMessage(user.id, body.request_query.msg_id)
+    await bot.api.deleteMessage(user.id, body.request_query.msg_id)
 
     ctx.response.status = 204
   } catch (e) {
@@ -183,7 +189,6 @@ router.post('/endpoints/verify-captcha', async ctx => {
 })
 router.options('/endpoints/verify-captcha', async ctx => {
   ctx.response.status = 204
-  ctx.response
 })
 endpoint.use(router.routes())
 endpoint.listen(process.env.TGWD_PORT)
