@@ -39,13 +39,8 @@ jobs:
 
       - name: "Pull latest code"
         run: |
-          ssh staging 'cd tg-watchdog'
-          ssh staging 'git pull'
+          ssh staging 'cd tg-watchdog | git pull'
 
       - name: "Apply changes in backend"
         run: |
-          ssh staging 'cd tg-watchdog'
-          ssh staging 'cd backend'
-          ssh staging 'yarn'
-          ssh staging 'yarn stop'
-          ssh staging 'yarn start'
+          ssh staging 'cd tg-watchdog/backend | yarn | yarn stop | yarn start'
