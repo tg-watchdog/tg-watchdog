@@ -37,28 +37,15 @@ jobs:
           SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           SSH_HOST: ${{ secrets.REMOTE_HOST }}
 
-      - name: "Go to project directory"
-        run: |
-          ssh staging 'cd tg-watchdog'
-
-      - name: "Listing directories"
-        run: |
-          ssh staging 'ls -all'
-
       - name: "Pull latest code"
         run: |
+          ssh staging 'cd tg-watchdog'
           ssh staging 'git pull'
 
-      - name: "Go to backend directory"
+      - name: "Apply changes in backend"
         run: |
+          ssh staging 'cd tg-watchdog'
           ssh staging 'cd backend'
-
-      - name: "Install dependencies"
-        run: |
           ssh staging 'yarn'
-
-      - name: Stop the server
-        run: ssh staging 'yarn stop'
-
-      - name: Refresh the server
-        run: ssh staging 'yarn start'
+          ssh staging 'yarn stop'
+          ssh staging 'yarn start'
