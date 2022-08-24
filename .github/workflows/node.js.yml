@@ -37,10 +37,7 @@ jobs:
           SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           SSH_HOST: ${{ secrets.REMOTE_HOST }}
 
-      - name: "Pull latest code"
+      - name: "Install packages"
+        working-directory: backend
         run: |
-          ssh staging 'cd tg-watchdog ; git pull'
-
-      - name: "Apply changes in backend"
-        run: |
-          ssh staging 'cd tg-watchdog/backend ; yarn ; yarn stop ; yarn start'
+          yarn
