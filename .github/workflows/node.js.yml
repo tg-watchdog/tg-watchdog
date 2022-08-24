@@ -34,4 +34,4 @@ jobs:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: cd tg-watchdog/backend && npm install && npm run stop && npm run start
+          script: cd tg-watchdog/backend && nvm use 18 && yarn && yarn stop && yarn start
