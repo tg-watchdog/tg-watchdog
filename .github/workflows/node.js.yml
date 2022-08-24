@@ -39,7 +39,7 @@ jobs:
 
       - name: "Go to backend directory"
         run: |
-          ssh staging 'cd backend'
+          ssh staging 'cd tg-watchdog/backend'
 
       - name: "Pull latest code"
         run: |
