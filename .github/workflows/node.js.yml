@@ -37,13 +37,13 @@ jobs:
           SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           SSH_HOST: ${{ secrets.REMOTE_HOST }}
 
-      - name: "Pull latest code"
-        run: |
-          ssh staging 'git pull'
-
       - name: "Go to backend directory"
         run: |
           ssh staging 'cd backend'
+
+      - name: "Pull latest code"
+        run: |
+          ssh staging 'git pull'
 
       - name: "Install dependencies"
         run: |
