@@ -38,9 +38,13 @@ jobs:
           SSH_HOST: ${{ secrets.REMOTE_HOST }}
 
       - name: "Pull latest code"
+        working-directory: ~/tg-watchdog
         run: |
-          ssh staging 'cd tg-watchdog | ls -all'
+          ssh staging 'git pull'
 
       - name: "Apply changes in backend"
+        working-directory: ~/tg-watchdog/backend
         run: |
-          ssh staging 'cd tg-watchdog/backend | yarn | yarn stop | yarn start'
+          ssh staging 'yarn'
+          ssh staging 'yarn stop'
+          ssh staging 'yarn start'
