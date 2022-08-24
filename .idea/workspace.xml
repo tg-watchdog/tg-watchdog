@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d9e53fd3-635b-472f-8d75-ca46afc79c42" name="Changes" comment="Edit await and changes localization files">
+    <list default="true" id="d9e53fd3-635b-472f-8d75-ca46afc79c42" name="Changes" comment="Update version number">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/node.js.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/node.js.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +70,8 @@
       <workItem from="1661203519341" duration="801000" />
       <workItem from="1661204330680" duration="748000" />
       <workItem from="1661248946376" duration="1963000" />
-      <workItem from="1661256338176" duration="27000" />
+      <workItem from="1661256338176" duration="201000" />
+      <workItem from="1661302691006" duration="50000" />
     </task>
     <task id="LOCAL-00001" summary="Add contributing guidelines.">
       <created>1661131404384</created>
@@ -108,7 +108,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661255888743</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Update version number">
+      <created>1661256380126</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1661256380126</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -125,7 +132,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="dev" />
+                        <option value="Astrian-patch-1" />
                       </list>
                     </value>
                   </entry>
@@ -143,7 +150,8 @@
     <MESSAGE value="Fix i18n issue&#10;The fallback language which should be applied when user use the language not supported by Telegram Watchdog" />
     <MESSAGE value="Workspaces configuration file modify" />
     <MESSAGE value="Edit await and changes localization files" />
-    <option name="LAST_COMMIT_MESSAGE" value="Edit await and changes localization files" />
+    <MESSAGE value="Update version number" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update version number" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
