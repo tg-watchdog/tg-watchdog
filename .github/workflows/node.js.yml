@@ -39,7 +39,7 @@ jobs:
 
       - name: "Pull latest code"
         run: |
-          ssh staging 'cd tg-watchdog | git pull'
+          ssh staging 'cd tg-watchdog | ls -all'
 
       - name: "Apply changes in backend"
         run: |
