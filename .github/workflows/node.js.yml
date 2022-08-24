@@ -38,6 +38,5 @@ jobs:
           SSH_HOST: ${{ secrets.REMOTE_HOST }}
 
       - name: "Install packages"
-        working-directory: backend
         run: |
-          yarn
+          ls -all
