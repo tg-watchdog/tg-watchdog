@@ -30,6 +30,6 @@ jobs:
           # ssh port of the server
           USER: ${{ secrets.REMOTE_USER }}
           # private ssh key registered on the server
-          PRIVATE_SSH_KEY: ${{ SSH_PRIVATE_KEY }}
+          PRIVATE_SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           # command to be executed
           COMMAND: "cd ~/tg-watchdog | git pull | pm2 restart tg-watchdog"
