@@ -37,6 +37,10 @@ jobs:
           SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           SSH_HOST: ${{ secrets.REMOTE_HOST }}
 
+      - name: "Install dependencies"
+        run: |
+          yarn
+
       - name: Stop the server
         run: ssh staging 'yarn stop'
 
