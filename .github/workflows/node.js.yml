@@ -37,13 +37,13 @@ jobs:
           SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           SSH_HOST: ${{ secrets.REMOTE_HOST }}
 
-      - name: "Listing directories"
-        run: |
-          ssh staging 'ls -all'
-
       - name: "Go to project directory"
         run: |
           ssh staging 'cd tg-watchdog'
+
+      - name: "Listing directories"
+        run: |
+          ssh staging 'ls -all'
 
       - name: "Pull latest code"
         run: |
