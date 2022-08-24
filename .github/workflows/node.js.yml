@@ -38,8 +38,8 @@ jobs:
           SSH_HOST: ${{ secrets.REMOTE_HOST }}
 
       - name: Stop the server
-        run: ssh staging 'pm2 stop tg-watchdog'
+        run: ssh staging 'yarn stop'
 
       - name: Refresh the server
         if: ${{ always() }}
-        run: ssh staging 'cd ~/tg-watchdog | git pull | pm2 restart tg-watchdog'
+        run: ssh staging 'cd ~/tg-watchdog | git pull | cd backend | yarn start'
