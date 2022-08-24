@@ -20,9 +20,26 @@ jobs:
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-      - name: Login SSH
-        uses: webfactory/ssh-agent@v0.1.1
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-      - name: Run SSH Command
-        run: ssh ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} "cd ~/tg-watchdog | git pull | pm2 restart tg-watchdog"
+      - name: "Configure SSH"
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_KEY" > ~/.ssh/staging.key
+          chmod 600 ~/.ssh/staging.key
+          cat >>~/.ssh/config <<END
+          Host staging
+            HostName $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/staging.key
+            StrictHostKeyChecking no
+          END
+        env:
+          SSH_USER: ${{ secrets.REMOTE_USER }}
+          SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_HOST: ${{ secrets.REMOTE_HOST }}
+
+      - name: Stop the server
+        run: ssh staging 'pm2 stop tg-watchdog'
+
+      - name: Refresh the server
+        if: ${{ always() }}
+        run: ssh staging 'cd ~/tg-watchdog | git pull | pm2 restart tg-watchdog'
