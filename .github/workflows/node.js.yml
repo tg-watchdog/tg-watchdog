@@ -39,15 +39,15 @@ jobs:
 
       - name: "Pull latest code"
         run: |
-          git pull
+          ssh staging 'git pull'
 
       - name: "Go to backend directory"
         run: |
-          cd backend
+          ssh staging 'cd backend'
 
       - name: "Install dependencies"
         run: |
-          yarn
+          ssh staging 'yarn'
 
       - name: Stop the server
         run: ssh staging 'yarn stop'
