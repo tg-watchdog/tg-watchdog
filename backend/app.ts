@@ -70,17 +70,21 @@ const bot = new Bot<BotContext>(process.env.TGWD_TOKEN || "");
 
 (async () => {
   bot.command("start", async ctx => {
-    await ctx.reply(ctx.t("welcome_body"), {
-      disable_web_page_preview: true,
-      reply_markup: {
-        inline_keyboard: [[
-          {
-            text: ctx.t("welcome_setmeasadmin"),
-            url: `https://t.me/${ctx.me.username}?startgroup=start&admin=can_invite_users`
-          }
-        ]]
+    await ctx.reply(
+      `${ctx.t("welcome_body")}\n${ctx.t("welcome_links_github")} · ${ctx.t("welcome_links_help")} · ${ctx.t("welcome_links_community")} · ${ctx.t("welcome_links_channel")}\n\n${ctx.t("helpbot")}`,
+      {
+        disable_web_page_preview: true,
+        reply_markup: {
+          inline_keyboard: [[
+            {
+              text: ctx.t("welcome_setmeasadmin"),
+              url: `https://t.me/${ctx.me.username}?startgroup=start&admin=can_invite_users`
+            }
+          ]]
+        },
+        parse_mode: "HTML"
       }
-    })
+    )
   })
 })();
 
@@ -94,7 +98,7 @@ const bot = new Bot<BotContext>(process.env.TGWD_TOKEN || "");
     print(url)
     await bot.api.editMessageText(
       ctx.from.id, msgId,
-      `${ctx.t("verify_message", {groupname: ctx.chat.title})}\n${ctx.t("verify_info")}`,
+      `${ctx.t("verify_message", {groupname: ctx.chat.title})}\n${ctx.t("verify_info")}\n\n${ctx.t("helpbot")}`,
       {
         reply_markup: {
           inline_keyboard: [[{

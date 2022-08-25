@@ -10,5 +10,4 @@ verify_message = 你好，我是群组 { $groupname } 的看门狗！🐶
 verify_loading = 请稍等...
 verify_info = 你需要点击以下按钮并通过 CAPTCHA 测试，之后才能加入该群组。
 verify_btn = 开始验证
-help_body = 没有贡献者们，Telegram Watchdog 无法在如此强大的同时对所有人保持免费。
-help_donate = <a href="https://t.me/tgwatchdog_update/32">捐助或参与贡献</a>
+helpbot = 没有贡献者们，Telegram Watchdog 无法在如此强大的同时对所有人保持免费。<a href="https://t.me/tgwatchdog_update/32">捐助或参与贡献</a>
