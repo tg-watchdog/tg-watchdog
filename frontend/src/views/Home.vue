@@ -11,7 +11,7 @@
         <div class="descripction_text">{{ $t('VERIFING_SUBTITLE') }}</div>
         <!--vue-hcaptcha :sitekey="sitekey" @verify="captchaVerify" /-->
         <div class="captcha_area">
-          <vue-friendly-captcha :sitekey="sitekey" @done="captchaVerify" />
+          <vue-friendly-captcha :sitekey="sitekey" :language="lang" @done="captchaVerify" />
         </div>
       </div>
       <div v-else-if="loginStatus === 2">
