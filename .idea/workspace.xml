@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d9e53fd3-635b-472f-8d75-ca46afc79c42" name="Changes" comment="Fix submodule issue">
-      <change beforePath="$PROJECT_DIR$/.gitmodules" beforeDir="false" afterPath="$PROJECT_DIR$/.gitmodules" afterDir="false" />
+    <list default="true" id="d9e53fd3-635b-472f-8d75-ca46afc79c42" name="Changes" comment="Re-add submodules">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/locale" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/locale" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -142,7 +139,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663118759783</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Re-add submodules">
+      <created>1663120647805</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1663120647805</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -178,7 +182,8 @@
     <MESSAGE value="Workspaces configuration file modify" />
     <MESSAGE value="Edit await and changes localization files" />
     <MESSAGE value="Fix submodule issue" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix submodule issue" />
+    <MESSAGE value="Re-add submodules" />
+    <option name="LAST_COMMIT_MESSAGE" value="Re-add submodules" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
