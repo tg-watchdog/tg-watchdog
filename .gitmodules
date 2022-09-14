@@ -1,0 +1,6 @@
+[submodule "backend/locale"]
+	path = backend/locale
+	url = git@github.com:tg-watchdog/tg-watchdog
+[submodule "frontend/src/locale"]
+	path = frontend/src/locale
+	url = https://github.com/tg-watchdog/webapp-locale
