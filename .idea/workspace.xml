@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d9e53fd3-635b-472f-8d75-ca46afc79c42" name="Changes" comment="Edit await and changes localization files">
+    <list default="true" id="d9e53fd3-635b-472f-8d75-ca46afc79c42" name="Changes" comment="Fix submodule issue">
       <change beforePath="$PROJECT_DIR$/.gitmodules" beforeDir="false" afterPath="$PROJECT_DIR$/.gitmodules" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -74,7 +74,7 @@
       <workItem from="1661403800428" duration="398000" />
       <workItem from="1661404207342" duration="1034000" />
       <workItem from="1661407993074" duration="369000" />
-      <workItem from="1663115930263" duration="935000" />
+      <workItem from="1663115930263" duration="1129000" />
     </task>
     <task id="LOCAL-00001" summary="Add contributing guidelines.">
       <created>1661131404384</created>
@@ -111,7 +111,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661255888743</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Fix submodule issue">
+      <created>1663118278302</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1663118278302</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -146,7 +153,8 @@
     <MESSAGE value="Fix i18n issue&#10;The fallback language which should be applied when user use the language not supported by Telegram Watchdog" />
     <MESSAGE value="Workspaces configuration file modify" />
     <MESSAGE value="Edit await and changes localization files" />
-    <option name="LAST_COMMIT_MESSAGE" value="Edit await and changes localization files" />
+    <MESSAGE value="Fix submodule issue" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix submodule issue" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
