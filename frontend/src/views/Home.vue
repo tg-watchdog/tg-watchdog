@@ -57,7 +57,7 @@ export default {
         let tglogin = this.tglogin
         await axios.post(`/endpoints/verify-captcha`, { token, tglogin, request_query: this.query })
         this.loginStatus = 2
-        window.Telegram.WebApp.MainButton.show().setParams({ text: "结束" }).onClick(() => { window.Telegram.WebApp.close() })
+        window.Telegram.WebApp.MainButton.show().setParams({ text: this.$t("RESULTPAGE_BUTTON_DONE") }).onClick(() => { window.Telegram.WebApp.close() })
       } catch(e) {
         this.loginStatus = -2
         if (e.response) {
