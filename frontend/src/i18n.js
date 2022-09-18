@@ -8,9 +8,11 @@ function loadLocaleMessages () {
   const locales = require.context('./locales', true, /[A-Za-z0-9-_,\s]+\/strings\.json$/i)
   const messages = {}
   locales.keys().forEach(key => {
-    const matched = key.match(/([A-Za-z0-9-_]+)\./i)
+    const matched = key.match(/([A-Za-z0-9-_]+)\//i)
+    console.log(matched)
     if (matched && matched.length > 1) {
       const locale = matched[1]
+      console.log(locale)
       messages[locale] = locales(key)
     }
   })
