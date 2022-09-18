@@ -19,7 +19,7 @@ Dotenv.config()
 const initialLocales = async () =>{
   await fluent.addTranslation({
     locales: "zh_Hans",
-    filePath: ["./locales/zh_Hans/messages.ftl"]
+    filePath: ["./locales/zh-Hans/messages.ftl"]
   })
   await fluent.addTranslation({
     locales: "en",
@@ -28,11 +28,11 @@ const initialLocales = async () =>{
   })
   await fluent.addTranslation({
     locales: "zh_Hant",
-    filePath: ["./locales/zh_Hant/messages.ftl"]
+    filePath: ["./locales/zh-Hant/messages.ftl"]
   })
   await fluent.addTranslation({
     locales: "zh_Hant_HK",
-    filePath: ["./locales/zh_Hant_HK/messages.ftl"]
+    filePath: ["./locales/zh_HK/messages.ftl"]
   })
   await fluent.addTranslation({
     locales: "ja",
