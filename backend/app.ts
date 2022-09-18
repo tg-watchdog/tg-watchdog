@@ -100,6 +100,7 @@ const bot = new Bot<BotContext>(process.env.TGWD_TOKEN || "");
       ctx.from.id, msgId,
       `${ctx.t("verify_message", {groupname: ctx.chat.title})}\n${ctx.t("verify_info")}\n\n${ctx.t("helpbot")}`,
       {
+        disable_web_page_preview: true,
         reply_markup: {
           inline_keyboard: [[{
             text: ctx.t("verify_btn"),
@@ -107,7 +108,8 @@ const bot = new Bot<BotContext>(process.env.TGWD_TOKEN || "");
               url: url
             }
           }]]
-        }
+        },
+        parse_mode: "HTML"
       }
     )
   })
