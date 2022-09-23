@@ -1,6 +1,6 @@
 {
   "name": "tg-watchdog-vue",
-  "version": "2208.02.0",
+  "version": "2209.01.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
