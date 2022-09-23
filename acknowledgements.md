@@ -11,3 +11,7 @@ Added Japanese localisations and fixed some localisation problems.
 **Kira Roubin ([@jplie](https://github.com/jplie))**
 
 Added Russian localisations.
+
+**shyn** ([@shyn](https://github.com/shyn))
+
+Improve localisation attributes for Friendly Captcha widget.
