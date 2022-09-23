@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d9e53fd3-635b-472f-8d75-ca46afc79c42" name="Changes" comment="Edit await and changes localization files">
+    <list default="true" id="d9e53fd3-635b-472f-8d75-ca46afc79c42" name="Changes" comment="Re-add submodules">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,6 +70,11 @@
       <workItem from="1661204330680" duration="748000" />
       <workItem from="1661248946376" duration="1963000" />
       <workItem from="1661256338176" duration="27000" />
+      <workItem from="1661400195058" duration="599000" />
+      <workItem from="1661403800428" duration="398000" />
+      <workItem from="1661404207342" duration="1034000" />
+      <workItem from="1661407993074" duration="369000" />
+      <workItem from="1663115930263" duration="1751000" />
     </task>
     <task id="LOCAL-00001" summary="Add contributing guidelines.">
       <created>1661131404384</created>
@@ -108,7 +111,42 @@
       <option name="project" value="LOCAL" />
       <updated>1661255888743</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Fix submodule issue">
+      <created>1663118278302</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1663118278302</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Fix submodule issue">
+      <created>1663118461525</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1663118461525</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Fix submodule issue">
+      <created>1663118612780</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1663118612780</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Fix submodule issue">
+      <created>1663118759783</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1663118759783</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Re-add submodules">
+      <created>1663120647805</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1663120647805</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -143,7 +181,9 @@
     <MESSAGE value="Fix i18n issue&#10;The fallback language which should be applied when user use the language not supported by Telegram Watchdog" />
     <MESSAGE value="Workspaces configuration file modify" />
     <MESSAGE value="Edit await and changes localization files" />
-    <option name="LAST_COMMIT_MESSAGE" value="Edit await and changes localization files" />
+    <MESSAGE value="Fix submodule issue" />
+    <MESSAGE value="Re-add submodules" />
+    <option name="LAST_COMMIT_MESSAGE" value="Re-add submodules" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
