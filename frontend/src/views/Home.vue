@@ -33,12 +33,8 @@
 <script>
 // @ is an alias to /src
 import axios from 'axios'
-import VueFriendlyCaptcha from '@somushq/vue-friendly-captcha'
 export default {
   name: 'Home',
-  components: {
-    VueFriendlyCaptcha
-  },
   data() {
     return {
       loginStatus: 0,

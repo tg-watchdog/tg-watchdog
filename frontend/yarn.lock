@@ -912,14 +912,6 @@
     "@babel/types" "^7.4.4"
     esutils "^2.0.2"
 
-"@babel/runtime-corejs3@^7.10.4":
-  version "7.16.8"
-  resolved "https://registry.npmmirror.com/@babel/runtime-corejs3/download/@babel/runtime-corejs3-7.16.8.tgz#ea533d96eda6fdc76b1812248e9fbd0c11d4a1a7"
-  integrity sha512-3fKhuICS1lMz0plI5ktOE/yEtBRMVxplzRkdn6mJQ197XiY0JnrzYV0+Mxozq3JZ8SBV9Ecurmw1XsGbwOf+Sg==
-  dependencies:
-    core-js-pure "^3.20.2"
-    regenerator-runtime "^0.13.4"
-
 "@babel/runtime@^7.11.0", "@babel/runtime@^7.8.4":
   version "7.16.7"
   resolved "https://registry.npmmirror.com/@babel/runtime/download/@babel/runtime-7.16.7.tgz#03ff99f64106588c9c403c6ecb8c3bafbbdff1fa"
@@ -1126,13 +1118,6 @@
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@soda/get-current-script/-/get-current-script-1.0.2.tgz#a53515db25d8038374381b73af20bb4f2e508d87"
   integrity sha512-T7VNNlYVM1SgQ+VsMYhnDkcGmWhQdL0bDyGm5TlQ3GBXnJscEClUUOKduWTmm2zCnvNLC1hc3JpuXjs/nFOc5w==
-
-"@somushq/vue-friendly-captcha@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@somushq/vue-friendly-captcha/-/vue-friendly-captcha-1.0.0.tgz#db92d3691b6a294bb2c39c3b9ac81f926193efaf"
-  integrity sha512-wKq+FQwYsJi3wG77vljvsoSkp7MKmlvJN3RXcOEwUJfIY9gGtMT15cRTnO5UqufpIAHoD1TyR0ZxsbWLlLojnQ==
-  dependencies:
-    friendly-challenge "^0.9.0"
 
 "@trysound/sax@0.2.0":
   version "0.2.0"
@@ -3055,11 +3040,6 @@ core-js-compat@^3.20.0, core-js-compat@^3.20.2, core-js-compat@^3.6.5:
     browserslist "^4.19.1"
     semver "7.0.0"
 
-core-js-pure@^3.20.2:
-  version "3.20.3"
-  resolved "https://registry.npmmirror.com/core-js-pure/download/core-js-pure-3.20.3.tgz#6cc4f36da06c61d95254efc54024fe4797fd5d02"
-  integrity sha512-Q2H6tQ5MtPtcC7f3HxJ48i4Q7T9ybPKgvWyuH7JXIoNa2pm0KuBnycsET/qw1SLLZYfbsbrZQNMeIOClb+6WIA==
-
 core-js@^3.6.5:
   version "3.20.3"
   resolved "https://registry.npmmirror.com/core-js/download/core-js-3.20.3.tgz#c710d0a676e684522f3db4ee84e5e18a9d11d69a"
@@ -4237,24 +4217,6 @@ fresh@0.5.2:
   version "0.5.2"
   resolved "https://registry.nlark.com/fresh/download/fresh-0.5.2.tgz?cache=0&sync_timestamp=1618847131116&other_urls=https%3A%2F%2Fregistry.nlark.com%2Ffresh%2Fdownload%2Ffresh-0.5.2.tgz#3d8cadd90d976569fa835ab1f8e4b23a105605a7"
   integrity sha1-PYyt2Q2XZWn6g1qx+OSyOhBWBac=
-
-friendly-challenge@^0.9.0:
-  version "0.9.0"
-  resolved "https://registry.npmmirror.com/friendly-challenge/download/friendly-challenge-0.9.0.tgz#57ab416d9155f043eed055c22c2b1179bf7166aa"
-  integrity sha1-V6tBbZFV8EPu0FXCLCsReb9xZqo=
-  dependencies:
-    "@babel/runtime-corejs3" "^7.10.4"
-    core-js "^3.6.5"
-    friendly-pow "0.1.2"
-    object-assign-polyfill "^0.1.0"
-    promis "^1.1.4"
-    url-polyfill "^1.1.10"
-    whatwg-fetch "^3.4.1"
-
-friendly-pow@0.1.2:
-  version "0.1.2"
-  resolved "https://registry.npmmirror.com/friendly-pow/download/friendly-pow-0.1.2.tgz#73a2f420d0573690f53f540b2a7d35828104db39"
-  integrity sha1-c6L0INBXNpD1P1QLKn01goEE2zk=
 
 from2@^2.1.0:
   version "2.3.0"
@@ -5873,11 +5835,6 @@ oauth-sign@~0.9.0:
   resolved "https://registry.npmmirror.com/oauth-sign/download/oauth-sign-0.9.0.tgz#47a7b016baa68b5fa0ecf3dee08a85c679ac6455"
   integrity sha1-R6ewFrqmi1+g7PPe4IqFxnmsZFU=
 
-object-assign-polyfill@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.npmmirror.com/object-assign-polyfill/download/object-assign-polyfill-0.1.0.tgz#2b72338ff68b770cdcda781860484bb8b2f40920"
-  integrity sha1-K3Izj/aLdwzc2ngYYEhLuLL0CSA=
-
 object-assign@^4.0.1, object-assign@^4.1.0, object-assign@^4.1.1:
   version "4.1.1"
   resolved "https://registry.nlark.com/object-assign/download/object-assign-4.1.1.tgz?cache=0&sync_timestamp=1618847398232&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fobject-assign%2Fdownload%2Fobject-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
@@ -6628,11 +6585,6 @@ progress@^2.0.0:
   version "2.0.3"
   resolved "https://registry.npmmirror.com/progress/download/progress-2.0.3.tgz#7e8cf8d8f5b8f239c1bc68beb4eb78567d572ef8"
   integrity sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==
-
-promis@^1.1.4:
-  version "1.1.4"
-  resolved "https://registry.npmmirror.com/promis/download/promis-1.1.4.tgz#0d0ef43ccacacdd8f9679cd6e0950f7c7f52096c"
-  integrity sha1-DQ70PMrKzdj5Z5zW4JUPfH9SCWw=
 
 promise-inflight@^1.0.1:
   version "1.0.1"
@@ -8071,11 +8023,6 @@ urix@^0.1.0:
   resolved "https://registry.npmmirror.com/urix/download/urix-0.1.0.tgz#da937f7a62e21fec1fd18d49b35c2935067a6c72"
   integrity sha1-2pN/emLiH+wf0Y1Js1wpNQZ6bHI=
 
-url-polyfill@^1.1.10:
-  version "1.1.12"
-  resolved "https://registry.nlark.com/url-polyfill/download/url-polyfill-1.1.12.tgz#6cdaa17f6b022841b3aec0bf8dbd87ac0cd33331"
-  integrity sha1-bNqhf2sCKEGzrsC/jb2HrAzTMzE=
-
 url@^0.11.0:
   version "0.11.0"
   resolved "https://registry.npmmirror.com/url/download/url-0.11.0.tgz#3838e97cfc60521eb73c525a8e55bfdd9e2e28f1"
@@ -8462,7 +8409,7 @@ websocket-extensions@>=0.1.1:
   resolved "https://registry.npm.taobao.org/websocket-extensions/download/websocket-extensions-0.1.4.tgz?cache=0&sync_timestamp=1591103014229&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fwebsocket-extensions%2Fdownload%2Fwebsocket-extensions-0.1.4.tgz#7f8473bc839dfd87608adb95d7eb075211578a42"
   integrity sha1-f4RzvIOd/YdgituV1+sHUhFXikI=
 
-whatwg-fetch@^3.4.1, whatwg-fetch@^3.6.2:
+whatwg-fetch@^3.6.2:
   version "3.6.2"
   resolved "https://registry.nlark.com/whatwg-fetch/download/whatwg-fetch-3.6.2.tgz#dced24f37f2624ed0281725d51d0e2e3fe677f8c"
   integrity sha1-3O0k838mJO0CgXJdUdDi4/5nf4w=
