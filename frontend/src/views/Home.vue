@@ -11,7 +11,7 @@
         <div class="descripction_text">{{ $t('VERIFING_SUBTITLE') }}</div>
         <!--vue-hcaptcha :sitekey="sitekey" @verify="captchaVerify" /-->
         <div class="captcha_area">
-          <vue-friendly-captcha :sitekey="sitekey" :language="lang" @done="captchaVerify" />
+          <turnstile :sitekey="sitekey" />
         </div>
       </div>
       <div v-else-if="loginStatus === 2">
@@ -33,8 +33,12 @@
 <script>
 // @ is an alias to /src
 import axios from 'axios'
+import Turnstile from 'cfturnstile-vue3'
 export default {
   name: 'Home',
+  components: {
+    Turnstile
+  },
   data() {
     return {
       loginStatus: 0,
