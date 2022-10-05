@@ -40,6 +40,7 @@ export default defineComponent({
     }
   },
   mounted() {
+    console.log(import.meta.env)
     if (window.Telegram.WebApp.initData) {
       const initDataRaw = decodeURIComponent(window.Telegram.WebApp.initData).split("&")
       let initData = {}
@@ -53,7 +54,7 @@ export default defineComponent({
         this.loginStatus = -3
       } */
     } else {
-      this.loginStatus = -1
+      this.loginStatus = 1
     }
   }
 })

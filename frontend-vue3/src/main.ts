@@ -1,3 +1,9 @@
+declare global {
+  interface Window {
+    Telegram?: any;
+  }
+}
+
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
