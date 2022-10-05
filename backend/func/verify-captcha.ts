@@ -6,13 +6,14 @@ const print = Debug("tgwd:func/verify-captcha.ts")
 export default async (response: string): Promise<{ success: Boolean, error?: { code: number, alias: string } }> => {
   let data
   try {
-    data = await axios.post(
-      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
-      {
-        response,
-        secret: process.env.TGWD_FC_API_KEY
-      }
-    )
+    let formData = new FormData()
+    formData.append('secret', process.env.TGWD_CFTS_API_KEY ?? "")
+	  formData.append('response', response)
+    data = await axios({
+      method: "POST",
+      url: "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+      data: `secret=${process.env.TGWD_CFTS_API_KEY ?? ""}&response=${response}`
+    })
   } catch(e) {
     print(e)
     return {
@@ -24,7 +25,7 @@ export default async (response: string): Promise<{ success: Boolean, error?: { c
     }
   }
   if (!data.data.success) {
-    print(data)
+    print(data.data)
     // throw new Error(JSON.stringify({code: 400, message: '未能通过人机验证'}))
     return { success: false, error: { code: 400, alias: "CAPTCHA_NOT_PASSED"} }
   }

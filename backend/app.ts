@@ -131,7 +131,7 @@ const bot = new Bot<BotContext>(process.env.TGWD_TOKEN || "");
 const endpoint = new Koa()
 endpoint.use(KoaBody())
 endpoint.use(cors({
-  origin: process.env.TGWD_FRONTEND_DOMAIN ?? "",
+  origin: `https://${process.env.TGWD_FRONTEND_DOMAIN ?? ""}`,
 }))
 
 const router = new Router()
@@ -140,10 +140,12 @@ router.get('/endpoints', async ctx => {
   ctx.response.body = JSON.stringify({
     hello: "world"
   })
+  print(process.env.TGWD_FRONTEND_DOMAIN)
 })
 router.post('/endpoints/verify-captcha', async ctx => {
   try {
     const body = <Query>ctx.request.body
+    print(body)
     const user = <TGUser>(JSON.parse(body.tglogin.user))
 
     // Verify signature
