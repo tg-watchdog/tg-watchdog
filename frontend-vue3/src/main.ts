@@ -27,6 +27,7 @@ const i18n = createI18n({
   messages: {
     en: englishi18n,
     'zh-Hans': simchinesei18n,
+    zh: simchinesei18n,
     'zh-CN': mlchinesei18n,
     'zh-Hant': tradchinesei18n,
     'zh-HK': hkchinesei18n,

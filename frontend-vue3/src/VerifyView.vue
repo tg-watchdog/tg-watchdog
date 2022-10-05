@@ -43,6 +43,9 @@ export default defineComponent({
           this.errmsg = this.$t("ERRCODE_UNKNOWN")
         }
       }
+    },
+    async debug() {
+      console.log(this.lang)
     }
   },
   mounted() {
