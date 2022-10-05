@@ -8,6 +8,7 @@ import Koa from "koa"
 import Router from "koa-router"
 import KoaBody from "koa-body"
 import func from "./func"
+import cors from "@koa/cors"
 
 
 // Initialing
@@ -129,6 +130,9 @@ const bot = new Bot<BotContext>(process.env.TGWD_TOKEN || "");
 // HTTP Requests
 const endpoint = new Koa()
 endpoint.use(KoaBody())
+endpoint.use(cors({
+  origin: process.env.TGWD_FRONTEND_DOMAIN ?? "",
+}))
 
 const router = new Router()
 router.get('/endpoints', async ctx => {
