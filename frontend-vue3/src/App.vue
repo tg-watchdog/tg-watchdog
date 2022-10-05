@@ -40,7 +40,6 @@ export default defineComponent({
     }
   },
   mounted() {
-    console.log(import.meta.env)
     if (window.Telegram.WebApp.initData) {
       const initDataRaw = decodeURIComponent(window.Telegram.WebApp.initData).split("&")
       let initData = {}
@@ -73,7 +72,7 @@ export default defineComponent({
         <div class="descripction_text">{{ $t('VERIFING_SUBTITLE') }}</div>
         <!--vue-hcaptcha :sitekey="sitekey" @verify="captchaVerify" /-->
         <div class="captcha_area">
-          <turnstile :sitekey="sitekey" />
+          <turnstile :sitekey="sitekey" @verify="captchaVerify" />
         </div>
       </div>
       <div v-else-if="loginStatus === 2">
