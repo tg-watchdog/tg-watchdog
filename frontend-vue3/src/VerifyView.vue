@@ -1,7 +1,7 @@
 <script lang="ts">
 import { RouterLink } from 'vue-router'
 import { defineComponent } from 'vue'
-import Turnstile from '@astrianz/cfturnstile-vue3'
+import Turnstile from 'cfturnstile-vue3'
 import axios from 'axios'
 
 export default defineComponent({

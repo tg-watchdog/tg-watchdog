@@ -9,9 +9,9 @@
     "type-check": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "@astrianz/cfturnstile-vue3": "^0.0.6",
     "@types/axios": "^0.14.0",
     "axios": "^1.0.0",
+    "cfturnstile-vue3": "^1.0.0",
     "vue": "^3.2.38",
     "vue-i18n": "9",
     "vue-router": "^4.1.5"
