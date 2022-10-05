@@ -8,6 +8,7 @@ import Koa from "koa"
 import Router from "koa-router"
 import KoaBody from "koa-body"
 import func from "./func"
+import cors from "@koa/cors"
 
 
 // Initialing
@@ -59,8 +60,8 @@ if (!process.env.TGWD_SECRET) {
 if (!process.env.TGWD_PORT) {
   throw(new Error("You must define TGWD_PORT (endpoint port) to use this bot."))
 }
-if (!process.env.TGWD_FC_API_KEY) {
-  throw(new Error("You must define TGWD_FC_API_KEY (FriendCaptcha API Key) to use this bot."))
+if (!process.env.TGWD_CFTS_API_KEY) {
+  throw(new Error("You must define TGWD_CFTS_API_KEY (Cloudflare Turnstile API key) to use this bot."))
 }
 
 // Bot part
@@ -129,6 +130,9 @@ const bot = new Bot<BotContext>(process.env.TGWD_TOKEN || "");
 // HTTP Requests
 const endpoint = new Koa()
 endpoint.use(KoaBody())
+endpoint.use(cors({
+  origin: `https://${process.env.TGWD_FRONTEND_DOMAIN ?? ""}`,
+}))
 
 const router = new Router()
 router.get('/endpoints', async ctx => {
@@ -136,10 +140,12 @@ router.get('/endpoints', async ctx => {
   ctx.response.body = JSON.stringify({
     hello: "world"
   })
+  print(process.env.TGWD_FRONTEND_DOMAIN)
 })
 router.post('/endpoints/verify-captcha', async ctx => {
   try {
     const body = <Query>ctx.request.body
+    print(body)
     const user = <TGUser>(JSON.parse(body.tglogin.user))
 
     // Verify signature

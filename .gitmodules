@@ -4,3 +4,6 @@
 [submodule "frontend/src/locales"]
 	path = frontend/src/locales
 	url = https://github.com/tg-watchdog/webapp-locale
+[submodule "frontend-vue3/src/locales"]
+	path = frontend-vue3/src/locales
+	url = https://github.com/tg-watchdog/webapp-locale
