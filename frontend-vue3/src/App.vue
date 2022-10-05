@@ -23,6 +23,11 @@ export default defineComponent({
   },
   methods: {
     async captchaVerify(token: string) {
+      await new Promise(resolve => {
+        const interval = setInterval(() => {
+          resolve('i am groot')
+        }, 1000)
+      })
       this.loginStatus = 3
       try {
         let tglogin = this.tglogin
