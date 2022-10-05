@@ -34,7 +34,7 @@ export default defineComponent({
         await axios.post(`/endpoints/verify-captcha`, { token, tglogin, request_query: this.query })
         this.loginStatus = 2
         window.Telegram.WebApp.MainButton.show().setParams({ text: this.$t("RESULTPAGE_BUTTON_DONE") }).onClick(() => { window.Telegram.WebApp.close() })
-      } catch(e) {
+      } catch(e: any) {
         this.loginStatus = -2
         if (e.response) {
           this.errmsg = this.$t(`ERRCODE_${e.response.data.message}`) || this.$t("ERRCODE_UNKNOWN")
@@ -47,9 +47,10 @@ export default defineComponent({
   mounted() {
     if (window.Telegram.WebApp.initData) {
       const initDataRaw = decodeURIComponent(window.Telegram.WebApp.initData).split("&")
-      let initData = {}
+      let initData: any = {}
       for (let i in initDataRaw) {
-        initData[initDataRaw[i].split("=")[0]] = initDataRaw[i].split("=")[1]
+        let [key, value] = initDataRaw[i].split("=")
+        initData[key] = value
       }
       this.$data.tglogin = initData
       this.$data.userProfile = JSON.parse(initData.user)
@@ -58,7 +59,7 @@ export default defineComponent({
         this.loginStatus = -3
       } */
     } else {
-      this.loginStatus = 1
+      this.loginStatus = -1
     }
   }
 })

@@ -3,13 +3,13 @@ import Debug from "debug"
 
 const print = Debug("tgwd:func/verify-captcha.ts")
 
-export default async (solution: string): Promise<{ success: Boolean, error?: { code: number, alias: string } }> => {
+export default async (response: string): Promise<{ success: Boolean, error?: { code: number, alias: string } }> => {
   let data
   try {
     data = await axios.post(
-      "https://api.friendlycaptcha.com/api/v1/siteverify",
+      "https://challenges.cloudflare.com/turnstile/v0/siteverify",
       {
-        solution,
+        response,
         secret: process.env.TGWD_FC_API_KEY
       }
     )

@@ -59,8 +59,8 @@ if (!process.env.TGWD_SECRET) {
 if (!process.env.TGWD_PORT) {
   throw(new Error("You must define TGWD_PORT (endpoint port) to use this bot."))
 }
-if (!process.env.TGWD_FC_API_KEY) {
-  throw(new Error("You must define TGWD_FC_API_KEY (FriendCaptcha API Key) to use this bot."))
+if (!process.env.TGWD_CFTS_API_KEY) {
+  throw(new Error("You must define TGWD_CFTS_API_KEY (Cloudflare Turnstile API key) to use this bot."))
 }
 
 // Bot part
