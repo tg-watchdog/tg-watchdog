@@ -34,9 +34,11 @@ export default defineComponent({
         let tglogin = this.tglogin
         await axios.post(`${import.meta.env.VITE_ENDPOINT}/endpoints/verify-captcha`, { token, tglogin, request_query: this.query })
         this.loginStatus = 2
+        window.Telegram.WebApp.HapticFeedback.notificationOccurred("success")
         window.Telegram.WebApp.MainButton.show().setParams({ text: this.$t("RESULTPAGE_BUTTON_DONE") }).onClick(() => { window.Telegram.WebApp.close() })
       } catch(e: any) {
         this.loginStatus = -2
+        window.Telegram.WebApp.HapticFeedback.notificationOccurred("error")
         if (e.response) {
           this.errmsg = this.$t(`ERRCODE_${e.response.data.message}`) || this.$t("ERRCODE_UNKNOWN")
         } else {
