@@ -2,13 +2,6 @@
 # yarn lockfile v1
 
 
-"@astrianz/cfturnstile-vue3@^0.0.6":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/@astrianz/cfturnstile-vue3/-/cfturnstile-vue3-0.0.6.tgz#fb1e2e0f6556d1a103c3e5992613bdaf8384f4bf"
-  integrity sha512-A1kbcqVWd9Jt5b/Q+RQrMRTi4ivJZILj/u9GqDgD5Dii5o0p5FVUyC/3dT/lRgYO0dctoAGcuESSNMkAuF1BxQ==
-  dependencies:
-    vue "^3.2.38"
-
 "@babel/parser@^7.16.4":
   version "7.19.3"
   resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.19.3.tgz#8dd36d17c53ff347f9e55c328710321b49479a9a"
@@ -275,6 +268,13 @@ call-bind@^1.0.0, call-bind@^1.0.2:
   dependencies:
     function-bind "^1.1.1"
     get-intrinsic "^1.0.2"
+
+cfturnstile-vue3@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/cfturnstile-vue3/-/cfturnstile-vue3-1.0.0.tgz#3c9289a9038ef67282c79f0bc4c591bc7c3c68ab"
+  integrity sha512-R0cJ2OnnxeCIkihxEkb5KSbEncrqU2UchYGhtsXHiJTluS1C9oLMB54I9qQUd6puk/8zlhor5udO1ACgDOMAUA==
+  dependencies:
+    vue "^3.2.38"
 
 chalk@^2.4.1:
   version "2.4.2"
