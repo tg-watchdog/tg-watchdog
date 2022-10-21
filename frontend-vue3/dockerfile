@@ -1,0 +1,28 @@
+# 选择一个基础镜像
+FROM node:18
+
+# 决定用户
+USER root
+
+# 把当前文件夹里的所有文件拷进docker
+# 会依据.dockerignore文件忽略掉不需要的文件
+ADD . /opt/code
+WORKDIR /opt/code
+
+# 环境变量配置, 列出所有的环境变量即可
+# 注意, 这是环境变量, 你的程序应该从process.env读取环境变量
+ENV VITE_SITEKEY=${VITE_SITEKEY} \
+    VITE_ENDPOINT=${VITE_ENDPOINT}
+
+# 执行一些命令来做准备工作
+# 这会在打包镜像时运行
+RUN yarn install
+RUN yarn build
+
+# 运行服务
+# 这会在启动镜像时运行
+CMD yarn run preview --host 0.0.0.0
+
+# 在这个目录执行
+# docker build -t 镜像文件名 .
+# 就可以打包了
