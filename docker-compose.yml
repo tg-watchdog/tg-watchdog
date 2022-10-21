@@ -1,0 +1,26 @@
+# 你可以在这个文件的目录使用docker-compose up启动, 后台启动的话加-d参数
+
+version: "3"
+services:
+  frontend:
+    # 这样写会打包本路径下的dockerfile作为镜像
+    # 也可以写image使用hub.docker中现成的镜像
+    build: ./frontend-vue3
+    # 这样读取环境变量文件作为环境变量
+    # 也可以手写而不使用文件, 那么就使用environment字段, 具体看一下文档
+    env_file:
+      - ./frontend-vue3/.env
+    # 这里决定端口的映射关系, 前面是宿主机的, 后面是docker的
+    ports:
+      - 4173:4173
+    # 坏了的时候要不要自动重启
+    restart: always
+  backend:
+    build: ./backend
+    env_file:
+      - ./backend/.env
+    ports:
+      - 80:80
+    restart: always
+  # 你可以设置一个虚拟网络让这两个程序在内部网络互通
+  # 但你的程序得改一下, 前端使用到后端地址的时候要写后端的服务名称, 所以这里就不搞了, 就把端口暴露出来吧
