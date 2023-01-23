@@ -15,6 +15,7 @@ import tradchinesei18n from './locales/zh-Hant/strings.json'
 import hkchinesei18n from './locales/zh_HK/strings.json'
 import japi18n from './locales/ja/strings.json'
 import twchinesei18n from './locales/zh-TW/strings.json'
+import tri18n from './locales/tr/strings.json'
 import rui18n from './locales/ru/strings.json'
 
 const app = createApp(App)
@@ -33,7 +34,8 @@ const i18n = createI18n({
     'zh-HK': hkchinesei18n,
     ja: japi18n,
     'zh-TW': twchinesei18n,
-    ru: rui18n
+    ru: rui18n,
+    tr: tri18n
   }
 })
 

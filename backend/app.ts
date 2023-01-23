@@ -43,6 +43,10 @@ const initialLocales = async () =>{
     locales: "ru",
     filePath: ["./locales/ru/messages.ftl"]
   })
+  await fluent.addTranslation({
+    locales: "tr",
+    filePath: ["./locales/tr/messages.ftl"]
+  })
 }
 (async () => { await initialLocales() })()
 
