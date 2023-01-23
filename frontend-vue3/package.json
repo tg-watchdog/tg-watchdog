@@ -1,6 +1,6 @@
 {
   "name": "frontend-vue3",
-  "version": "2210.01.0",
+  "version": "2301.01.0",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check build-only",
