@@ -1,0 +1,11 @@
+.git
+node_modules
+coverage
+.nyc_output
+dist
+dump
+logs
+.env.*
+.parcel-cache
+sessions
+.env
