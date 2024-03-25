@@ -20,9 +20,8 @@ ENV TGWD_TOKEN=${TGWD_TOKEN} \
 
 # 执行一些命令来做准备工作
 # 这会在打包镜像时运行
+RUN npm install -g typescript
 RUN npm install pm2 -g
-RUN git submodule init
-RUN git submodule update
 RUN yarn install
 RUN npx tsc --build
 
