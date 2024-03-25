@@ -27,6 +27,7 @@
   "scripts": {
     "dev": "DEBUG=tgwd:* nodemon app.ts",
     "start": "tsc --build && NODE_ENV=production pm2 start dist/app.js --name tg-watchdog",
+    "dkstart": "NODE_ENV=production DEBUG=tgwd:* pm2 start dist/app.js --name tg-watchdog && pm2 logs -f",
     "stop": "pm2 stop tg-watchdog && pm2 delete tg-watchdog",
     "clean": "rm -rf dist"
   },

@@ -21,14 +21,13 @@ ENV TGWD_TOKEN=${TGWD_TOKEN} \
 # 执行一些命令来做准备工作
 # 这会在打包镜像时运行
 RUN npm install -g typescript
-RUN npm install pm2 -g
-RUN yarn install
+RUN yarn
 RUN npx tsc --build
 
 # 运行服务
 # 这会在启动镜像时运行
 # 因为pm2是守护进程式的, 不会阻塞shell, 而shell退出了docker就没了, 所以这里让pm2一直打日志, 既阻塞了shell又能看到日志
-CMD NODE_ENV=production DEBUG=tgwd:* pm2 start dist/app.js --name tg-watchdog && pm2 logs -f
+CMD yarn dkstart
 
 # 在这个目录执行
 # docker build -t 镜像文件名 .
