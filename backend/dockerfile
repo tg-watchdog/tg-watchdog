@@ -27,7 +27,7 @@ RUN npx tsc --build
 # 运行服务
 # 这会在启动镜像时运行
 # 因为pm2是守护进程式的, 不会阻塞shell, 而shell退出了docker就没了, 所以这里让pm2一直打日志, 既阻塞了shell又能看到日志
-CMD yarn dkstart
+CMD yarn dev
 
 # 在这个目录执行
 # docker build -t 镜像文件名 .
