@@ -207,5 +207,7 @@ router.options('/endpoints/verify-captcha', async ctx => {
   ctx.response.status = 204
 })
 endpoint.use(router.routes())
-endpoint.listen(process.env.TGWD_PORT)
+endpoint.listen(process.env.TGWD_PORT, () => {
+  print(`Server is running on port ${process.env.TGWD_PORT}`)
+})
 
