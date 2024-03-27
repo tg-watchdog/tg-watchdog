@@ -13,7 +13,7 @@ WORKDIR /opt/code
 # 注意, 这是环境变量, 你的程序应该从process.env读取环境变量
 ENV TGWD_TOKEN=${TGWD_TOKEN} \
     TGWD_SECRET=${TGWD_SECRET} \
-    TGWD_PORT=${TGWD_PORT} \
+    TGWD_PORT=3000 \
     TGWD_DOMAIN=${TGWD_DOMAIN} \
     TGWD_FRONTEND_DOMAIN=${TGWD_FRONTEND_DOMAIN} \
     TGWD_CFTS_API_KEY=${TGWD_CFTS_API_KEY}
@@ -23,6 +23,9 @@ ENV TGWD_TOKEN=${TGWD_TOKEN} \
 RUN npm install -g typescript
 RUN yarn
 RUN npx tsc --build
+
+# 暴露端口
+EXPOSE 3000
 
 # 运行服务
 # 这会在启动镜像时运行
