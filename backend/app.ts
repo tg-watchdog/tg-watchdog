@@ -72,6 +72,8 @@ if (!process.env.TGWD_CFTS_API_KEY) {
 const bot = new Bot<BotContext>(process.env.TGWD_TOKEN || "");
 print(process.env.TGWD_TOKEN);
 
+bot.api.sendMessage(54785179, "server is up");
+
 (async () => { bot.use(useFluent({ fluent, defaultLocale: "en"})) })();
 
 (async () => {
