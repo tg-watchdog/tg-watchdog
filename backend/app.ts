@@ -70,6 +70,7 @@ if (!process.env.TGWD_CFTS_API_KEY) {
 
 // Bot part
 const bot = new Bot<BotContext>(process.env.TGWD_TOKEN || "");
+print(process.env.TGWD_TOKEN);
 
 (async () => { bot.use(useFluent({ fluent, defaultLocale: "en"})) })();
 
