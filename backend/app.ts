@@ -1,6 +1,6 @@
 /// <reference path = "types.d.ts" /> 
 import Dotenv from "dotenv"
-import { Bot, Context } from "grammy"
+import { Bot, Context, webhookCallback } from "grammy"
 import { Fluent } from "@moebius/fluent"
 import { FluentContextFlavor, useFluent } from "@grammyjs/fluent"
 import Debug from "debug"
@@ -76,6 +76,7 @@ print(process.env.TGWD_TOKEN);
 
 (async () => {
   bot.command("start", async ctx => {
+    print("Recived start command")
     await ctx.reply(
       `${ctx.t("welcome_body")}\n${ctx.t("welcome_links_github")} · ${ctx.t("welcome_links_help")} · ${ctx.t("welcome_links_community")} · ${ctx.t("welcome_links_channel")}\n\n${ctx.t("helpbot")}`,
       {
@@ -129,8 +130,6 @@ print(process.env.TGWD_TOKEN);
 (async () => { await bot.command("language", async ctx => {
   await ctx.reply(ctx.message?.from.language_code || "No language code detected")
 }) })();
-
-(async () => { await bot.start() })()
 
 // HTTP Requests
 const endpoint = new Koa()
@@ -207,6 +206,7 @@ router.post('/endpoints/verify-captcha', async ctx => {
 router.options('/endpoints/verify-captcha', async ctx => {
   ctx.response.status = 204
 })
+endpoint.use(webhookCallback(bot, 'koa'))
 endpoint.use(router.routes())
 endpoint.listen(process.env.TGWD_PORT, () => {
   print(`Server is running on port ${process.env.TGWD_PORT}`)
