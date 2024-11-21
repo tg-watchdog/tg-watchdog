@@ -76,7 +76,7 @@ const bot = new Bot<BotContext>(process.env.TGWD_TOKEN || "");
 (async () => {
   bot.command("start", async ctx => {
     await ctx.reply(
-      `[WARNING] Telegram Watchdog currently may not available. You may need to contact the group chat admins to complete the verify routine. Detail: https://t.me/tgwatchdog_chat/1514/2816\n\n${ctx.t("welcome_body")}\n${ctx.t("welcome_links_github")} · ${ctx.t("welcome_links_help")} · ${ctx.t("welcome_links_community")} · ${ctx.t("welcome_links_channel")}\n\n${ctx.t("helpbot")}`,
+      `${ctx.t("welcome_body")}\n${ctx.t("welcome_links_github")} · ${ctx.t("welcome_links_help")} · ${ctx.t("welcome_links_community")} · ${ctx.t("welcome_links_channel")}\n\n${ctx.t("helpbot")}`,
       {
         disable_web_page_preview: true,
         reply_markup: {
@@ -103,7 +103,7 @@ const bot = new Bot<BotContext>(process.env.TGWD_TOKEN || "");
     print(url)
     await bot.api.editMessageText(
       ctx.from.id, msgId,
-      `[WARNING] Telegram Watchdog currently may not available. You may need to contact the group chat admins to complete the verify routine. Detail: https://t.me/tgwatchdog_chat/1514/2816\n\n${ctx.t("verify_message", {groupname: ctx.chat.title})}\n${ctx.t("verify_info")}\n\n${ctx.t("helpbot")}`,
+      `${ctx.t("verify_message", {groupname: ctx.chat.title})}\n${ctx.t("verify_info")}\n\n${ctx.t("helpbot")}`,
       {
         disable_web_page_preview: true,
         reply_markup: {
