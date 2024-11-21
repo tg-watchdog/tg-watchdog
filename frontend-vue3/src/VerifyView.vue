@@ -24,6 +24,7 @@ export default defineComponent({
   },
   methods: {
     async captchaVerify(token: string) {
+      // return
       await new Promise(resolve => {
         const interval = setInterval(() => {
           resolve('i am groot')
@@ -52,25 +53,12 @@ export default defineComponent({
   },
   mounted() {
     if (window.Telegram.WebApp.initData) {
+      // alert(window.Telegram.WebApp.initData)
       const initDataRaw = decodeURIComponent(window.Telegram.WebApp.initData).split("&")
       this.initData = initDataRaw
       let initData: any = {}
       for (let i in initDataRaw) {
-        // initData[initDataRaw[i].split("=")[0]] = initDataRaw[i].split("=")[1]
-        switch (initDataRaw[i].split("=")[0]) {
-          case 'query_id':
-            initData.query_id = initDataRaw[i].split("=")[1]
-            break
-          case 'user':
-            initData.user = initDataRaw[i].split("=")[1]
-            break
-          case 'auth_date':
-            initData.auth_date = parseInt(initDataRaw[i].split("=")[1])
-            break
-          case 'hash':
-            initData.hash = initDataRaw[i].split("=")[1]
-            break
-        }
+        initData[initDataRaw[i].split("=")[0]] = initDataRaw[i].split("=")[1]
       }
       this.tglogin = initData
       this.userProfile = JSON.parse(initData.user)
