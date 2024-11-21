@@ -72,15 +72,13 @@ if (!process.env.TGWD_CFTS_API_KEY) {
 const bot = new Bot<BotContext>(process.env.TGWD_TOKEN || "");
 print(process.env.TGWD_TOKEN);
 
-bot.api.sendMessage(54785179, "server is up");
-
 (async () => { bot.use(useFluent({ fluent, defaultLocale: "en"})) })();
 
 (async () => {
   bot.command("start", async ctx => {
     print("Recived start command")
     await ctx.reply(
-      `${ctx.t("welcome_body")}\n${ctx.t("welcome_links_github")} · ${ctx.t("welcome_links_help")} · ${ctx.t("welcome_links_community")} · ${ctx.t("welcome_links_channel")}\n\n${ctx.t("helpbot")}`,
+      `[WARNING] Telegram Watchdog currently may not available. Detail: https://t.me/tgwatchdog_chat/1514/2816\n${ctx.t("welcome_body")}\n${ctx.t("welcome_links_github")} · ${ctx.t("welcome_links_help")} · ${ctx.t("welcome_links_community")} · ${ctx.t("welcome_links_channel")}\n\n${ctx.t("helpbot")}`,
       {
         disable_web_page_preview: true,
         reply_markup: {
@@ -99,7 +97,7 @@ bot.api.sendMessage(54785179, "server is up");
 
 (async () => {
   bot.on("chat_join_request", async ctx => {
-    const msg = await bot.api.sendMessage(ctx.from.id, `${ctx.t("verify_message", {groupname: ctx.chat.title})}\n${ctx.t("verify_loading")}`)
+    const msg = await bot.api.sendMessage(ctx.from.id, `[WARNING] Telegram Watchdog currently may not available. You may need to contact the group chat admins to complete the verify routine. Detail: https://t.me/tgwatchdog_chat/1514/2816\n${ctx.t("verify_message", {groupname: ctx.chat.title})}\n${ctx.t("verify_loading")}`)
     const timestamp = new Date().getTime()
     const msgId = msg.message_id
     const signature = await func.signature(msgId, ctx.chat.id, ctx.from.id, timestamp)
@@ -107,7 +105,7 @@ bot.api.sendMessage(54785179, "server is up");
     print(url)
     await bot.api.editMessageText(
       ctx.from.id, msgId,
-      `${ctx.t("verify_message", {groupname: ctx.chat.title})}\n${ctx.t("verify_info")}\n\n${ctx.t("helpbot")}`,
+      `[WARNING] Telegram Watchdog currently may not available. You may need to contact the group chat admins to complete the verify routine. Detail: https://t.me/tgwatchdog_chat/1514/2816\n${ctx.t("verify_message", {groupname: ctx.chat.title})}\n${ctx.t("verify_info")}\n\n${ctx.t("helpbot")}`,
       {
         disable_web_page_preview: true,
         reply_markup: {
