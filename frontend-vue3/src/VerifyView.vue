@@ -53,12 +53,14 @@ export default defineComponent({
   },
   mounted() {
     if (window.Telegram.WebApp.initData) {
+      console.log("aaa")
       // alert(window.Telegram.WebApp.initData)
-      const initDataRaw = decodeURIComponent(window.Telegram.WebApp.initData).split("&")
-      this.initData = initDataRaw
+      const params = new URLSearchParams(window.Telegram.WebApp.initData)
+      console.log(Array.from(params.entries()))
+      this.initData = Array.from(params.entries()).map(entry => entry.join('='))
       let initData: any = {}
-      for (let i in initDataRaw) {
-        initData[initDataRaw[i].split("=")[0]] = initDataRaw[i].split("=")[1]
+      for (const [key, value] of params.entries()) {
+        initData[key] = value
       }
       this.tglogin = initData
       this.userProfile = JSON.parse(initData.user)
