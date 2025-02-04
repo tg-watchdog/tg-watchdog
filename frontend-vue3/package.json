@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@types/axios": "^0.14.0",
-    "axios": "^1.0.0",
+    "axios": "^1.7.4",
     "cfturnstile-vue3": "^1.0.0",
     "vue": "^3.2.38",
     "vue-i18n": "9",
