@@ -31,12 +31,16 @@ jobs:
 
             export PATH="$NVM_DIR/versions/node/$(nvm version)/bin:$PATH"
 
+            pm2 update
+
             cd ~/tgwatchdog
             git pull origin main
 
             cd backend
             npm install --omit=dev
-            pm2 restart backend
+            npm run stop
+            npm run clean
+            npm start
 
             cd ../frontend-vue3
             npm install
