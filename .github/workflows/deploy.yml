@@ -18,24 +18,28 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.TGWATCHDOG_SSH_KEY }}" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -H your.vps.ip >> ~/.ssh/known_hosts
+          ssh-keyscan -H ${{ secrets.TGWATCHDOG_VPS_IP }} >> ~/.ssh/known_hosts
 
       - name: Deploy via SSH
         run: |
-          ssh tgwatchdog@your.vps.ip << 'EOF'
+          ssh tgwatchdog@${{ secrets.TGWATCHDOG_VPS_IP }} << 'EOF'
             set -e
 
+            # 拉取最新代码
             cd ~/tgwatchdog
             git pull origin main
 
+            # 后端部署
             cd backend
             npm install --omit=dev
             pm2 restart backend
 
+            # 前端部署
             cd ../frontend
             npm install
             npm run build
 
+            # 发布前端构建结果
             rm -rf /var/www/tgwatchdog/*
             cp -r dist/* /var/www/tgwatchdog/
           EOF
