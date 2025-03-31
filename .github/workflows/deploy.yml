@@ -37,7 +37,7 @@ jobs:
             git pull origin main
 
             cd backend
-            npm install --omit=dev
+            npm install
             npm run stop
             npm run clean
             npm start
