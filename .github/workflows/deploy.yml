@@ -38,7 +38,7 @@ jobs:
             npm install --omit=dev
             pm2 restart backend
 
-            cd ../frontend
+            cd ../frontend-vue3
             npm install
             npm run build
 
