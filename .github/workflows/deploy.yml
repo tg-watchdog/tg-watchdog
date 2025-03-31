@@ -25,21 +25,21 @@ jobs:
           ssh tgwatchdog@${{ secrets.TGWATCHDOG_VPS_IP }} << 'EOF'
             set -e
 
-            # 拉取最新代码
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
             cd ~/tgwatchdog
             git pull origin main
 
-            # 后端部署
             cd backend
             npm install --omit=dev
             pm2 restart backend
 
-            # 前端部署
             cd ../frontend
             npm install
             npm run build
 
-            # 发布前端构建结果
             rm -rf /var/www/tgwatchdog/*
             cp -r dist/* /var/www/tgwatchdog/
           EOF
