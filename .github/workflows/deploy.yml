@@ -37,13 +37,13 @@ jobs:
             git pull origin main
 
             cd backend
-            npm install
+            npm ci
             npm run stop
             npm run clean
             npm start
 
             cd ../frontend-vue3
-            npm install
+            npm ci
             npm run build
 
             rm -rf /var/www/tgwatchdog/*
