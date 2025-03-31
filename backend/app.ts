@@ -78,7 +78,6 @@ const bot = new Bot<BotContext>(process.env.TGWD_TOKEN || "");
     await ctx.reply(
       `${ctx.t("welcome_body")}\n${ctx.t("welcome_links_github")} · ${ctx.t("welcome_links_help")} · ${ctx.t("welcome_links_community")} · ${ctx.t("welcome_links_channel")}\n\n${ctx.t("helpbot")}`,
       {
-        disable_web_page_preview: true,
         reply_markup: {
           inline_keyboard: [[
             {
@@ -87,7 +86,10 @@ const bot = new Bot<BotContext>(process.env.TGWD_TOKEN || "");
             }
           ]]
         },
-        parse_mode: "HTML"
+        parse_mode: "HTML",
+        link_preview_options: {
+          is_disabled: true
+        }
       }
     )
   })
@@ -105,7 +107,6 @@ const bot = new Bot<BotContext>(process.env.TGWD_TOKEN || "");
       ctx.from.id, msgId,
       `${ctx.t("verify_message", {groupname: ctx.chat.title})}\n${ctx.t("verify_info")}\n\n${ctx.t("helpbot")}`,
       {
-        disable_web_page_preview: true,
         reply_markup: {
           inline_keyboard: [[{
             text: ctx.t("verify_btn"),
@@ -114,7 +115,10 @@ const bot = new Bot<BotContext>(process.env.TGWD_TOKEN || "");
             }
           }]]
         },
-        parse_mode: "HTML"
+        parse_mode: "HTML",
+        link_preview_options: {
+          is_disabled: true
+        }
       }
     )
   })
