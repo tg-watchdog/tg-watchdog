@@ -26,6 +26,7 @@ Check out [Handbook part](https://tgwatchdog.astrian.moe/zh/handbook/) of the do
 - [Documents](https://tgwatchdog.astrian.moe/)
 - [Try the bot + community](https://t.me/tgwatchdog_chat)
 - [Activity update channel](https://t.me/tgwatchdog_update)
+- [cjh0613/csubot](https://github.com/cjh0613/csubot) This is a backend written in Golang, which can be used in conjunction with the tg-watchdog frontend and is fully compatible. 
 
 # Acknowledgements
 See: [Acknowledgements](/acknowledgements.md)
