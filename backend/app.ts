@@ -83,7 +83,7 @@ const bot = new Bot<BotContext>(process.env.TGWD_TOKEN || "");
           inline_keyboard: [[
             {
               text: ctx.t("welcome_setmeasadmin"),
-              url: `https://t.me/${ctx.me.username}?startgroup=start&admin=can_invite_users`
+              url: `https://t.me/${ctx.me.username}?startgroup=start&admin=invite_users`
             }
           ]]
         },
