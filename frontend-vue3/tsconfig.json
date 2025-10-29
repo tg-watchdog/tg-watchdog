@@ -7,7 +7,8 @@
       "@/*": ["./src/*"]
     },
     "target": "esnext",
-    "module": "esnext"
+    "module": "esnext",
+    "lib": ["esnext", "dom", "dom.iterable"]
   },
 
   "references": [

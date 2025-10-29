@@ -16,8 +16,8 @@ export default defineComponent({
 			isFallbackMode: false,
 			errmsg: "",
 			sitekey: import.meta.env.VITE_SITEKEY,
-			tglogin: {},
-			userProfile: {},
+			tglogin: {} as any,
+			userProfile: {} as { first_name?: string; last_name?: string; username?: string; id?: number },
 			query: this.$route.query,
 			lang: navigator.language,
 			initData: [] as string[]
@@ -159,7 +159,7 @@ export default defineComponent({
 			const themeVars = prefersDark ? { ...darkTheme, ...viewportVars } : { ...lightTheme, ...viewportVars }
 
 			// 设置所有 CSS 变量
-			Object.entries(themeVars).forEach(([key, value]) => {
+			Object.entries(themeVars).forEach(([key, value]: [string, string]) => {
 				root.style.setProperty(key, value)
 			})
 
