@@ -1,4 +1,4 @@
-/// <reference path = "types.d.ts" /> 
+/// <reference path = "types.d.ts" />
 import Dotenv from "dotenv"
 import { Bot, Context } from "grammy"
 import { Fluent } from "@moebius/fluent"
@@ -82,7 +82,7 @@ const bot = new Bot<BotContext>(process.env.TGWD_TOKEN || "");
           inline_keyboard: [[
             {
               text: ctx.t("welcome_setmeasadmin"),
-              url: `https://t.me/${ctx.me.username}?startgroup=start&admin=can_invite_users`
+              url: `https://t.me/${ctx.me.username}?startgroup=start&admin=invite_users`
             }
           ]]
         },
@@ -98,7 +98,7 @@ const bot = new Bot<BotContext>(process.env.TGWD_TOKEN || "");
 (async () => {
   bot.on("chat_join_request", async ctx => {
     const msg = await bot.api.sendMessage(ctx.from.id, `${ctx.t("verify_message", {groupname: ctx.chat.title})}\n${ctx.t("verify_loading")}`)
-    const timestamp = new Date().getTime()
+    const timestamp = Date.now()
     const msgId = msg.message_id
     const signature = await func.signature(msgId, ctx.chat.id, ctx.from.id, timestamp)
     const url = `https://${process.env.TGWD_FRONTEND_DOMAIN}/?chat_id=${ctx.chat.id}&msg_id=${msgId}&timestamp=${timestamp}&signature=${signature}`
@@ -192,7 +192,7 @@ router.post('/endpoints/verify-captcha', async ctx => {
       await bot.api.declineChatJoinRequest(body.request_query.chat_id, user.id)
       return
     }
-    
+
     // Accept user's join request
     await bot.api.approveChatJoinRequest(body.request_query.chat_id, user.id)
 
@@ -212,4 +212,3 @@ router.options('/endpoints/verify-captcha', async ctx => {
 })
 endpoint.use(router.routes())
 endpoint.listen(process.env.TGWD_PORT)
-
