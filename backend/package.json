@@ -1,39 +1,39 @@
 {
-  "name": "tg-watchdog",
-  "version": "2502.01.0",
-  "main": "app.ts",
-  "repository": "https://github.com/Astrian/tg-watchdog",
-  "license": "MIT",
-  "private": true,
-  "dependencies": {
-    "@grammyjs/fluent": "^1.0.3",
-    "@koa/cors": "^5.0.0",
-    "@moebius/fluent": "^1.1.0",
-    "@types/debug": "^4.1.7",
-    "@types/koa": "^2.13.4",
-    "@types/koa__cors": "^3.3.0",
-    "@types/koa-router": "^7.4.4",
-    "@types/node": "^18.0.0",
-    "axios": "^1.12.0",
-    "crypto": "^1.0.1",
-    "debug": "^4.3.4",
-    "dotenv": "^16.0.1",
-    "grammy": "^1.9.0",
-    "koa": "^3.0.3",
-    "koa-body": "^5.0.0",
-    "koa-router": "^10.1.1",
-    "ts-node": "^10.8.1",
-    "typescript": "^4.7.4"
-  },
-  "scripts": {
-    "dev": "DEBUG=tgwd:* nodemon app.ts",
-    "start": "tsc --build && NODE_ENV=production pm2 start dist/app.js --name tg-watchdog",
-    "dkstart": "NODE_ENV=production DEBUG=tgwd:* pm2 start dist/app.js --name tg-watchdog && pm2 logs -f",
-    "stop": "pm2 stop tg-watchdog && pm2 delete tg-watchdog",
-    "clean": "rm -rf dist"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.18",
-    "pm2": "^5.2.0"
-  }
+	"name": "tg-watchdog",
+	"version": "2510.01.0",
+	"main": "app.ts",
+	"repository": "https://github.com/Astrian/tg-watchdog",
+	"license": "MIT",
+	"private": true,
+	"dependencies": {
+		"@grammyjs/fluent": "^1.0.3",
+		"@koa/cors": "^5.0.0",
+		"@moebius/fluent": "^1.1.0",
+		"@types/debug": "^4.1.7",
+		"@types/koa": "^2.13.4",
+		"@types/koa__cors": "^3.3.0",
+		"@types/koa-router": "^7.4.4",
+		"@types/node": "^18.0.0",
+		"axios": "^1.12.0",
+		"crypto": "^1.0.1",
+		"debug": "^4.3.4",
+		"dotenv": "^16.0.1",
+		"grammy": "^1.9.0",
+		"koa": "^3.0.3",
+		"koa-body": "^5.0.0",
+		"koa-router": "^10.1.1",
+		"ts-node": "^10.8.1",
+		"typescript": "^4.7.4"
+	},
+	"scripts": {
+		"dev": "DEBUG=tgwd:* nodemon app.ts",
+		"start": "tsc --build && NODE_ENV=production pm2 start dist/app.js --name tg-watchdog",
+		"dkstart": "NODE_ENV=production DEBUG=tgwd:* pm2 start dist/app.js --name tg-watchdog && pm2 logs -f",
+		"stop": "pm2 stop tg-watchdog && pm2 delete tg-watchdog",
+		"clean": "rm -rf dist"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.18",
+		"pm2": "^5.2.0"
+	}
 }
