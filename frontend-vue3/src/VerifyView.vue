@@ -239,7 +239,7 @@ export default defineComponent({
 				<div class="descripction_text">{{ $t('VERIFING_SUBTITLE') }}</div>
 				<!--vue-hcaptcha :sitekey="sitekey" @verify="captchaVerify" /-->
 				<div class="captcha_area">
-					<turnstile :sitekey="sitekey" @verify="captchaVerify"
+					<turnstile :sitekey="sitekey" @callback="captchaVerify"
 						:action="isFallbackMode ? 'browser-fallback' : 'webapp'" />
 				</div>
 			</div>
