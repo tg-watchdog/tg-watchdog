@@ -1,4 +1,4 @@
-/// <reference path = "types.d.ts" /> 
+/// <reference path = "types.d.ts" />
 import Dotenv from "dotenv"
 import { Bot, Context } from "grammy"
 import { Fluent } from "@moebius/fluent"
@@ -78,7 +78,9 @@ const bot = new Bot<BotContext>(process.env.TGWD_TOKEN || "");
     await ctx.reply(
       `${ctx.t("welcome_body")}\n${ctx.t("welcome_links_github")} · ${ctx.t("welcome_links_help")} · ${ctx.t("welcome_links_community")} · ${ctx.t("welcome_links_channel")}\n\n${ctx.t("helpbot")}`,
       {
-        disable_web_page_preview: true,
+    		link_preview_options: {
+    			is_disabled: true
+      	},
         reply_markup: {
           inline_keyboard: [[
             {
@@ -96,7 +98,7 @@ const bot = new Bot<BotContext>(process.env.TGWD_TOKEN || "");
 (async () => {
   bot.on("chat_join_request", async ctx => {
     const msg = await bot.api.sendMessage(ctx.from.id, `${ctx.t("verify_message", {groupname: ctx.chat.title})}\n${ctx.t("verify_loading")}`)
-    const timestamp = new Date().getTime()
+    const timestamp = Date.now()
     const msgId = msg.message_id
     const signature = await func.signature(msgId, ctx.chat.id, ctx.from.id, timestamp)
     const url = `https://${process.env.TGWD_FRONTEND_DOMAIN}/?chat_id=${ctx.chat.id}&msg_id=${msgId}&timestamp=${timestamp}&signature=${signature}`
@@ -105,7 +107,9 @@ const bot = new Bot<BotContext>(process.env.TGWD_TOKEN || "");
       ctx.from.id, msgId,
       `${ctx.t("verify_message", {groupname: ctx.chat.title})}\n${ctx.t("verify_info")}\n\n${ctx.t("helpbot")}`,
       {
-        disable_web_page_preview: true,
+        link_preview_options: {
+          is_disabled: true
+        },
         reply_markup: {
           inline_keyboard: [[{
             text: ctx.t("verify_btn"),
@@ -188,7 +192,7 @@ router.post('/endpoints/verify-captcha', async ctx => {
       await bot.api.declineChatJoinRequest(body.request_query.chat_id, user.id)
       return
     }
-    
+
     // Accept user's join request
     await bot.api.approveChatJoinRequest(body.request_query.chat_id, user.id)
 
@@ -208,4 +212,3 @@ router.options('/endpoints/verify-captcha', async ctx => {
 })
 endpoint.use(router.routes())
 endpoint.listen(process.env.TGWD_PORT)
-
