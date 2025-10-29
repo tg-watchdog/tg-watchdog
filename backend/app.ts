@@ -97,23 +97,27 @@ const bot = new Bot<BotContext>(process.env.TGWD_TOKEN || "");
 
 (async () => {
   bot.on("chat_join_request", async ctx => {
-    const msg = await bot.api.sendMessage(ctx.from.id, `${ctx.t("verify_message", {groupname: ctx.chat.title})}\n${ctx.t("verify_loading")}`)
+    console.log(ctx.from.id)
+
+  	const msg = await bot.api.sendMessage(ctx.from.id, `${ctx.t("verify_message", {groupname: ctx.chat.title})}\n${ctx.t("verify_loading")}`)
     const timestamp = Date.now()
     const msgId = msg.message_id
     const signature = await func.signature(msgId, ctx.chat.id, ctx.from.id, timestamp)
-    const url = `https://${process.env.TGWD_FRONTEND_DOMAIN}/?chat_id=${ctx.chat.id}&msg_id=${msgId}&timestamp=${timestamp}&signature=${signature}`
+    const url = `https://${process.env.TGWD_FRONTEND_DOMAIN}/?chat_id=${ctx.chat.id}&msg_id=${msgId}&user_id=${ctx.from.id}&timestamp=${timestamp}&signature=${signature}`
     print(url)
     await bot.api.editMessageText(
       ctx.from.id, msgId,
-      `${ctx.t("verify_message", {groupname: ctx.chat.title})}\n${ctx.t("verify_info")}\n\n${ctx.t("helpbot")}`,
+      `${ctx.t("verify_message", {groupname: ctx.chat.title})}\n${ctx.t("verify_info")}\n\n${ctx.t("helpbot")}\n${url}&fallback=1`,
       {
         reply_markup: {
-          inline_keyboard: [[{
-            text: ctx.t("verify_btn"),
-            web_app: {
-              url: url
-            }
-          }]]
+          inline_keyboard: [
+            [{
+              text: ctx.t("verify_btn"),
+              web_app: {
+                url: url
+              }
+            }]
+          ]
         },
         parse_mode: "HTML",
         link_preview_options: {
@@ -203,6 +207,79 @@ router.post('/endpoints/verify-captcha', async ctx => {
   } catch (e) {
     console.log(e)
     // const err = JSON.parse(e.message)
+    ctx.response.status = 500
+    ctx.response.body = { message: "SERVER_UNAVAILABLE" }
+  }
+})
+
+router.post('/endpoints/verify-captcha-fallback', async ctx => {
+  try {
+    const body = <FallbackQuery>ctx.request.body
+    print('[Fallback Mode]', body)
+    const user = body.tglogin
+
+    // 第 1 步: 验证 Telegram Login Widget hash
+    const loginValid = await func.verifyTelegramLogin(
+      body.tglogin,
+      process.env.TGWD_TOKEN || ""
+    )
+    if (!loginValid) {
+      ctx.response.status = 400
+      ctx.response.body = { message: "TELEGRAM_LOGIN_INVALID" }
+      return
+    }
+
+    // 第 2 步: user_id 一致性验证
+    if (`${user.id}` !== `${body.request_query.user_id}`) {
+      ctx.response.status = 400
+      ctx.response.body = { message: "USER_ID_MISMATCH" }
+      await bot.api.deleteMessage(body.request_query.user_id, body.request_query.msg_id)
+      await bot.api.declineChatJoinRequest(body.request_query.chat_id, body.request_query.user_id)
+      return
+    }
+
+    // 第 3 步: 验证签名
+    const calculatedHash = await func.signature(
+      body.request_query.msg_id,
+      body.request_query.chat_id,
+      body.request_query.user_id,
+      body.request_query.timestamp
+    )
+    if (calculatedHash !== body.request_query.signature) {
+      ctx.response.status = 400
+      ctx.response.body = { message: "INVALID_REQUEST" }
+      return
+    }
+
+    // 第 4 步: 验证时间戳（3 分钟有效期）
+    if ((body.request_query.timestamp + 180000) < new Date().getTime()) {
+      ctx.response.status = 400
+      ctx.response.body = { message: "REQUEST_OVERTIMED" }
+      await bot.api.deleteMessage(user.id, body.request_query.msg_id)
+      await bot.api.declineChatJoinRequest(body.request_query.chat_id, user.id)
+      return
+    }
+
+    // 第 5 步: 验证 CAPTCHA
+    const token = ctx.request.body.token
+    const captchaResult = await func.verifyCaptcha(token)
+    if (!captchaResult.success) {
+      ctx.response.status = captchaResult.error?.code || 400
+      ctx.response.body = { message: captchaResult.error?.alias || "CAPTCHA_NOT_PASSED" }
+      await bot.api.deleteMessage(user.id, body.request_query.msg_id)
+      await bot.api.declineChatJoinRequest(body.request_query.chat_id, user.id)
+      return
+    }
+
+    // 第 6 步: 批准加入请求
+    await bot.api.approveChatJoinRequest(body.request_query.chat_id, user.id)
+
+    // 删除验证消息
+    await bot.api.deleteMessage(user.id, body.request_query.msg_id)
+
+    ctx.response.status = 204
+  } catch (e) {
+    console.log(e)
     ctx.response.status = 500
     ctx.response.body = { message: "SERVER_UNAVAILABLE" }
   }
