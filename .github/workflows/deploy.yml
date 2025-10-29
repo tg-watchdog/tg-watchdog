@@ -46,7 +46,6 @@ jobs:
             cd ../frontend-vue3
             npm ci
             npm run build
+            chmod -R 755 ./dist
 
-            rm -rf /var/www/tgwatchdog/*
-            cp -r dist/* /var/www/tgwatchdog/
           EOF
