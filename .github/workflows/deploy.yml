@@ -37,6 +37,7 @@ jobs:
             git pull origin main
 
             cd backend
+            git pull --recurse-submodules && git submodule update --init --recursive
             npm ci
             npm run stop
             npm run clean
