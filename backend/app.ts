@@ -97,25 +97,30 @@ const bot = new Bot<BotContext>(process.env.TGWD_TOKEN || "");
 
 (async () => {
   bot.on("chat_join_request", async ctx => {
-    console.log(ctx.from.id)
 
   	const msg = await bot.api.sendMessage(ctx.from.id, `${ctx.t("verify_message", {groupname: ctx.chat.title})}\n${ctx.t("verify_loading")}`)
     const timestamp = Date.now()
     const msgId = msg.message_id
     const signature = await func.signature(msgId, ctx.chat.id, ctx.from.id, timestamp)
     const url = `https://${process.env.TGWD_FRONTEND_DOMAIN}/?chat_id=${ctx.chat.id}&msg_id=${msgId}&user_id=${ctx.from.id}&timestamp=${timestamp}&signature=${signature}`
-    print(url)
+
+    const text = `${ctx.t("verify_message", {groupname: ctx.chat.title})}\n${ctx.t("verify_info")}\n\n${ctx.t("helpbot")}`
+    print(text)
+
     await bot.api.editMessageText(
       ctx.from.id, msgId,
-      `${ctx.t("verify_message", {groupname: ctx.chat.title})}\n${ctx.t("verify_info")}\n\n${ctx.t("helpbot")}\n${url}&fallback=1`,
+      text,
       {
         reply_markup: {
           inline_keyboard: [
             [{
-              text: ctx.t("verify_btn"),
+              text: `⚡️ ${ctx.t("verify_btn")}`,
               web_app: {
                 url: url
               }
+            }], [{
+            	text: `🌍 ${ctx.t("verify_btn_browser")}`,
+             	url: `${url}&fallback=1`
             }]
           ]
         },

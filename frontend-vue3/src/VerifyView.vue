@@ -98,6 +98,76 @@ export default defineComponent({
 			this.userProfile = user
 			this.loginStatus = 1  // 进入验证阶段
 		},
+		injectFallbackTheme() {
+			// 在浏览器回退模式下注入 Telegram 主题 CSS 变量
+			const root = document.documentElement
+
+			// 检测系统深色模式
+			const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+
+			// 定义浅色主题
+			const lightTheme = {
+				'--tg-color-scheme': 'light',
+				'--tg-theme-bg-color': '#ffffff',
+				'--tg-theme-accent-text-color': '#2481cc',
+				'--tg-theme-header-bg-color': '#efeff3',
+				'--tg-theme-subtitle-text-color': '#999999',
+				'--tg-theme-link-color': '#2481cc',
+				'--tg-theme-section-header-text-color': '#6d6d71',
+				'--tg-theme-text-color': '#000000',
+				'--tg-theme-button-color': '#2481cc',
+				'--tg-theme-section-bg-color': '#ffffff',
+				'--tg-theme-hint-color': '#999999',
+				'--tg-theme-section-separator-color': '#eaeaea',
+				'--tg-theme-bottom-bar-bg-color': '#e4e4e4',
+				'--tg-theme-destructive-text-color': '#ff3b30',
+				'--tg-theme-button-text-color': '#ffffff',
+				'--tg-theme-secondary-bg-color': '#efeff3'
+			}
+
+			// 定义深色主题（使用 Telegram 官方深色模式颜色）
+			const darkTheme = {
+				'--tg-color-scheme': 'dark',
+				'--tg-theme-bg-color': '#18222d',
+				'--tg-theme-text-color': '#ffffff',
+				'--tg-theme-section-separator-color': '#213040',
+				'--tg-theme-link-color': '#62bcf9',
+				'--tg-theme-subtitle-text-color': '#b1c3d5',
+				'--tg-theme-bottom-bar-bg-color': '#213040',
+				'--tg-theme-section-header-text-color': '#b1c3d5',
+				'--tg-theme-hint-color': '#b1c3d5',
+				'--tg-theme-secondary-bg-color': '#131415',
+				'--tg-theme-button-text-color': '#ffffff',
+				'--tg-theme-header-bg-color': '#131415',
+				'--tg-theme-section-bg-color': '#18222d',
+				'--tg-theme-accent-text-color': '#2ea6ff',
+				'--tg-theme-button-color': '#2ea6ff',
+				'--tg-theme-destructive-text-color': '#ef5b5b'
+			}
+
+			// 视口相关变量（两种主题通用）
+			const viewportVars = {
+				'--tg-viewport-height': '100vh',
+				'--tg-viewport-stable-height': '100vh',
+				'--tg-safe-area-inset-top': '0px',
+				'--tg-safe-area-inset-bottom': '0px',
+				'--tg-safe-area-inset-left': '0px',
+				'--tg-safe-area-inset-right': '0px'
+			}
+
+			// 选择主题
+			const themeVars = prefersDark ? { ...darkTheme, ...viewportVars } : { ...lightTheme, ...viewportVars }
+
+			// 设置所有 CSS 变量
+			Object.entries(themeVars).forEach(([key, value]) => {
+				root.style.setProperty(key, value)
+			})
+
+			// 设置 body 背景色
+			document.body.style.backgroundColor = themeVars['--tg-theme-bg-color']
+
+			console.log(`已注入 Telegram 主题 CSS 变量（浏览器回退模式 - ${prefersDark ? '深色' : '浅色'}主题）`)
+		},
 		async debug() {
 			console.log(this.lang)
 		}
@@ -126,6 +196,10 @@ export default defineComponent({
 			// 浏览器回退模式
 			console.log("浏览器回退模式")
 			this.loginStatus = 0  // 等待登录
+
+			// 注入 Telegram 主题 CSS 变量
+			this.injectFallbackTheme()
+
 			// 延迟加载 Login Widget 以确保 DOM 已渲染
 			this.$nextTick(() => {
 				this.loadTelegramLoginWidget()
