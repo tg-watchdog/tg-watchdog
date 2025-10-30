@@ -33,7 +33,6 @@ jobs:
             cd backend
             mise install
             eval "$(mise hook-env)"
-            whereis npm
             fnox export --format env > .env
             npm ci
             npm run stop
@@ -42,6 +41,8 @@ jobs:
 
             cd ../frontend-vue3
             mise install
+            eval "$(mise hook-env)"
+            fnox export --format env > .env
             npm ci
             npm run build
             chmod -R 755 ./dist
