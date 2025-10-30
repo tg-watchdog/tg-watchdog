@@ -32,7 +32,6 @@ jobs:
             git pull --recurse-submodules && git submodule update --init --recursive
 
             cd backend
-            mise trust
             mise install
             eval "$(mise hook-env)"
             fnox export --format env > .env
@@ -42,7 +41,6 @@ jobs:
             npm start
 
             cd ../frontend-vue3
-            mise trust
             mise install
             eval "$(mise hook-env)"
             fnox export --format env > .env
