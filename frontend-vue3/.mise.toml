@@ -1,0 +1,9 @@
+# Frontend mise configuration
+# Inherits from root .mise.toml and adds frontend-specific settings
+
+[tools]
+node = "22.18.0"
+
+[env]
+# Frontend development settings
+NODE_ENV = "development"

@@ -1,0 +1,10 @@
+# tg-watchdog mise configuration
+# This file defines the development environment tools
+
+[tools]
+# Node.js version - using 22 LTS (Iron)
+node = "22.18.0"  # Latest LTS in 22.x series
+
+[env]
+# Default environment for development
+NODE_ENV = "development"

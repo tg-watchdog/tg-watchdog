@@ -1,0 +1,10 @@
+# Backend mise configuration
+# Inherits from root .mise.toml and adds backend-specific settings
+
+[tools]
+node = "22.18.0"
+
+[env]
+# Backend development settings
+DEBUG = "tgwd:*"
+NODE_ENV = "development"
