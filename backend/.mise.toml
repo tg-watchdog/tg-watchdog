@@ -3,6 +3,7 @@
 
 [tools]
 node = "22.18.0"
+fnox = "latest"
 
 [env]
 # Backend development settings
