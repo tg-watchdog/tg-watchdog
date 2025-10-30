@@ -1,7 +1,6 @@
 /// <reference path = "types.d.ts" />
 import Dotenv from "dotenv"
-import type { Context } from "grammy"
-import { webhookCallback, Bot } from "grammy"
+import { Bot, Context } from "grammy"
 import { Fluent } from "@moebius/fluent"
 import { FluentContextFlavor, useFluent } from "@grammyjs/fluent"
 import Debug from "debug"
@@ -10,6 +9,7 @@ import Router from "koa-router"
 import KoaBody from "koa-body"
 import func from "./func"
 import cors from "@koa/cors"
+
 
 // Initialing
 const print = Debug("tgwd:app.ts")
@@ -142,7 +142,7 @@ const bot = new Bot<BotContext>(process.env.TGWD_TOKEN || "");
   await ctx.reply(ctx.message?.from.language_code || "No language code detected")
 }) })();
 
-// (async () => { await bot.start() })()
+(async () => { await bot.start() })()
 
 // HTTP Requests
 const endpoint = new Koa()
@@ -292,21 +292,5 @@ router.post('/endpoints/verify-captcha-fallback', async ctx => {
 router.options('/endpoints/verify-captcha', async ctx => {
   ctx.response.status = 204
 })
-router.all('/endpoints/msg-webhook', webhookCallback(bot, "koa"))
 endpoint.use(router.routes())
-endpoint.listen(process.env.TGWD_PORT, async () => {
-	print(process.env.TGWD_PORT)
-	let flag = false
-	do {
-		try {
-			await setWebhookToTg()
-			flag = true
-			print("webhook registered")
-		} catch(_e) {}
-	} while(!flag)
-});
-
-async function setWebhookToTg	() {
-	const endpoint = `https://${process.env.TGWD_DOMAIN}/endpoints/msg-webhook`
-	await bot.api.setWebhook(endpoint)
-}
+endpoint.listen(process.env.TGWD_PORT)
