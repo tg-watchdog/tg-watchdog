@@ -25,11 +25,7 @@ jobs:
           ssh tgwatchdog@${{ secrets.TGWATCHDOG_VPS_IP }} << 'EOF'
             set -e
 
-            export NVM_DIR="$HOME/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-
-            export PATH="$NVM_DIR/versions/node/$(nvm version)/bin:$PATH"
+            curl https://mise.run | sh
 
             export OP_SERVICE_ACCOUNT_TOKEN="${{ secrets.OP_SERVICE_ACCOUNT_TOKEN}}"
 
