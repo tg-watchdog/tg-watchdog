@@ -31,6 +31,8 @@ jobs:
 
             export PATH="$NVM_DIR/versions/node/$(nvm version)/bin:$PATH"
 
+            export OP_SERVICE_ACCOUNT_TOKEN="${{ secrets.OP_SERVICE_ACCOUNT_TOKEN}}"
+
             pm2 update
 
             cd ~/tgwatchdog
@@ -38,6 +40,7 @@ jobs:
 
             cd backend
             git pull --recurse-submodules && git submodule update --init --recursive
+            fnox export --format env > .env
             npm ci
             npm run stop
             npm run clean
