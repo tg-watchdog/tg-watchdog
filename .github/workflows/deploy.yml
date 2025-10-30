@@ -24,7 +24,6 @@ jobs:
         run: |
           ssh tgwatchdog@${{ secrets.TGWATCHDOG_VPS_IP }} << 'EOF'
             set -e
-            source ~/.bashrc
 
             export OP_SERVICE_ACCOUNT_TOKEN="${{ secrets.OP_SERVICE_ACCOUNT_TOKEN}}"
 
