@@ -27,8 +27,6 @@ jobs:
 
             export OP_SERVICE_ACCOUNT_TOKEN="${{ secrets.OP_SERVICE_ACCOUNT_TOKEN}}"
 
-            pm2 update
-
             cd ~/tgwatchdog
             git pull origin main
 
