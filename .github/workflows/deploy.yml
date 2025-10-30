@@ -27,7 +27,7 @@ jobs:
 
             export OP_SERVICE_ACCOUNT_TOKEN="${{ secrets.OP_SERVICE_ACCOUNT_TOKEN}}"
 
-            cd /ops/tgwatchdog
+            cd /opt/tgwatchdog
             git pull --recurse-submodules && git submodule update --init --recursive
 
             cd backend
