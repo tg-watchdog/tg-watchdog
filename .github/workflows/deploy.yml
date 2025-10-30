@@ -18,44 +18,11 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.TGWATCHDOG_SSH_KEY }}" > ~/.ssh/id_ed25519
           chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -H ${{ secrets.TGWATCHDOG_VPS_1 }} >> ~/.ssh/known_hosts
-          ssh-keyscan -H ${{ secrets.TGWATCHDOG_VPS_2 }} >> ~/.ssh/known_hosts
+          ssh-keyscan -H ${{ secrets.TGWATCHDOG_VPS_IP }} >> ~/.ssh/known_hosts
 
-      - name: Deploy to first server via SSH
+      - name: Deploy via SSH
         run: |
-          ssh tgwatchdog@${{ secrets.TGWATCHDOG_VPS_1 }} << 'EOF'
-            set -e
-            source ~/.bashrc
-
-            export OP_SERVICE_ACCOUNT_TOKEN="${{ secrets.OP_SERVICE_ACCOUNT_TOKEN}}"
-
-            cd /opt/tgwatchdog
-            git pull --recurse-submodules && git submodule update --init --recursive
-
-            cd backend
-            mise trust
-            mise install
-            eval "$(mise hook-env)"
-            fnox export --format env > .env
-            npm ci
-            npm run stop
-            npm run clean
-            npm start
-
-            cd ../frontend-vue3
-            mise trust
-            mise install
-            eval "$(mise hook-env)"
-            fnox export --format env > .env
-            npm ci
-            npm run build
-            chmod -R 755 ./dist
-
-          EOF
-
-      - name: Deploy to second server via SSH
-        run: |
-          ssh tgwatchdog@${{ secrets.TGWATCHDOG_VPS_2 }} << 'EOF'
+          ssh tgwatchdog@${{ secrets.TGWATCHDOG_VPS_IP }} << 'EOF'
             set -e
             source ~/.bashrc
 
