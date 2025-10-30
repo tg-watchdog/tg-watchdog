@@ -4,6 +4,7 @@
 [tools]
 # Node.js version - using 22 LTS (Iron)
 node = "22.18.0"  # Latest LTS in 22.x series
+fnox = "latest"
 
 [env]
 # Default environment for development
