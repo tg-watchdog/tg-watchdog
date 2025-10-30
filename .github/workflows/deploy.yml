@@ -32,7 +32,7 @@ jobs:
 
             cd backend
             mise install
-            mise hook-env
+            eval "$(mise hook-env)"
             whereis npm
             fnox export --format env > .env
             npm ci
