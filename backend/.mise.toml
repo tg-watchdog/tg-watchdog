@@ -2,7 +2,7 @@
 # Inherits from root .mise.toml and adds backend-specific settings
 
 [tools]
-node = "22.18.0"
+node = "22.22.0"
 fnox = "latest"
 
 [env]
