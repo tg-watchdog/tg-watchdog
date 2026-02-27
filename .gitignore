@@ -1,5 +1,27 @@
+# IDE
 .vscode
 .idea
+
+# OS
 .DS_Store
+
+# Tools
 fnox.toml
-.DS_Store
+
+# Testing
+coverage/
+playwright-report/
+test-results/
+*.log
+
+# Dependencies
+node_modules/
+
+# Build
+dist/
+build/
+
+# Environment
+.env
+.env.local
+.env.*.local

@@ -1,0 +1,197 @@
+name: Test
+
+on:
+  push:
+    branches: [main, dev, 'roadmap/**']
+  pull_request:
+    branches: [main, dev]
+
+jobs:
+  # Backend Unit & Integration Tests
+  backend-test:
+    name: Backend Tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
+    
+    strategy:
+      matrix:
+        node-version: [18, 20, 22]
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: ./backend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run type check
+        run: npm run lint
+
+      - name: Run unit tests
+        run: npm run test -- --coverage
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        if: matrix.node-version == '22'
+        with:
+          name: backend-coverage
+          path: ./backend/coverage
+
+  # Frontend Unit Tests
+  frontend-unit-test:
+    name: Frontend Unit Tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend-vue3
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: ./frontend-vue3/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run type check
+        run: npm run type-check
+
+      - name: Run unit tests
+        run: npm run test:unit:coverage
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-coverage
+          path: ./frontend-vue3/coverage
+
+  # Frontend E2E Tests
+  frontend-e2e-test:
+    name: Frontend E2E Tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend-vue3
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+          cache-dependency-path: ./frontend-vue3/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Build frontend
+        run: npm run build
+
+      - name: Run E2E tests
+        run: npm run test:e2e
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: ./frontend-vue3/playwright-report
+
+  # Docker Build Test
+  docker-build-test:
+    name: Docker Build Test
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build backend Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./backend
+          push: false
+          load: true
+          tags: tg-watchdog-backend:test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Build frontend Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./frontend-vue3
+          push: false
+          load: true
+          tags: tg-watchdog-frontend:test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Test backend container starts
+        run: |
+          docker run -d --name backend-test \
+            -e TGWD_TOKEN=test_token \
+            -e TGWD_SECRET=test_secret \
+            -e TGWD_PORT=3000 \
+            -e TGWD_FRONTEND_DOMAIN=localhost \
+            -e TGWD_CFTS_API_KEY=test_key \
+            -p 3000:3000 \
+            tg-watchdog-backend:test
+          
+          # Wait for container to start
+          sleep 5
+          
+          # Check if container is running
+          docker ps | grep backend-test
+          
+          # Cleanup
+          docker stop backend-test
+          docker rm backend-test
+
+  # Test Summary
+  test-summary:
+    name: Test Summary
+    needs: [backend-test, frontend-unit-test, frontend-e2e-test, docker-build-test]
+    runs-on: ubuntu-latest
+    if: always()
+    
+    steps:
+      - name: Check test results
+        run: |
+          echo "Backend Tests: ${{ needs.backend-test.result }}"
+          echo "Frontend Unit Tests: ${{ needs.frontend-unit-test.result }}"
+          echo "Frontend E2E Tests: ${{ needs.frontend-e2e-test.result }}"
+          echo "Docker Build Test: ${{ needs.docker-build-test.result }}"
+          
+          if [ "${{ needs.backend-test.result }}" != "success" ] || \
+             [ "${{ needs.frontend-unit-test.result }}" != "success" ] || \
+             [ "${{ needs.frontend-e2e-test.result }}" != "success" ] || \
+             [ "${{ needs.docker-build-test.result }}" != "success" ]; then
+            echo "Some tests failed!"
+            exit 1
+          fi
+          
+          echo "All tests passed!"
