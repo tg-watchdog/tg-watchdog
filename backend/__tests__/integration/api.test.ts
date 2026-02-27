@@ -3,7 +3,7 @@ import Koa from 'koa';
 import Router from 'koa-router';
 import KoaBody from 'koa-body';
 import cors from '@koa/cors';
-import { signature } from '../../func/signature';
+import signature from '../../func/signature';
 
 // Create a test app without Telegram Bot dependencies
 function createTestApp() {

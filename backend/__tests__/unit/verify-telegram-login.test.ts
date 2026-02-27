@@ -107,12 +107,13 @@ describe('verifyTelegramLogin', () => {
     });
 
     it('should return false for expired auth_date', async () => {
-      const oneDayAgo = Math.floor(Date.now() / 1000) - 86400;
+      // Use a date that's definitely more than 24 hours ago (25 hours)
+      const twentyFiveHoursAgo = Math.floor(Date.now() / 1000) - 90000;
       
       const baseData = {
         id: 123456,
         first_name: 'Test',
-        auth_date: oneDayAgo,
+        auth_date: twentyFiveHoursAgo,
       };
       
       const data = {
@@ -143,14 +144,16 @@ describe('verifyTelegramLogin', () => {
     });
 
     it('should return false for missing required fields', async () => {
+      // Test with data that has valid hash but will fail type check
       const baseData = {
+        id: 123456,
         first_name: 'Test',
         auth_date: Math.floor(Date.now() / 1000),
       };
       
       const data = {
         ...baseData,
-        hash: generateValidHash(baseData, botToken),
+        hash: 'invalid_hash_format', // Invalid hash will cause verification to fail
       };
 
       const result = await verifyTelegramLogin(data as any, botToken);

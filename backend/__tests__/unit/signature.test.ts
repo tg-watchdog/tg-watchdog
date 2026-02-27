@@ -1,4 +1,4 @@
-import { signature } from '../../func/signature';
+import signature from '../../func/signature';
 
 describe('signature', () => {
   const testCases = [
