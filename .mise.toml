@@ -3,7 +3,7 @@
 
 [tools]
 # Node.js version - using 22 LTS (Iron)
-node = "22.22.0"  # Latest LTS in 22.x series
+node = "24.14.0"  # Latest LTS in 22.x series
 fnox = "latest"
 
 [env]
