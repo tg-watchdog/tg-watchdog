@@ -76,7 +76,7 @@ const bot = new Bot<BotContext>(process.env.TGWD_TOKEN || "");
 (async () => {
   bot.command("start", async ctx => {
     await ctx.reply(
-      `${ctx.t("welcome_body")}\n${ctx.t("welcome_links_github")} · ${ctx.t("welcome_links_help")} · ${ctx.t("welcome_links_community")} · ${ctx.t("welcome_links_channel")}\n\n${ctx.t("helpbot")}`,
+      `${ctx.t("welcome_body")}\n${ctx.t("welcome_links_github")} · ${ctx.t("welcome_links_help")} · ${ctx.t("welcome_links_community")}`,
       {
         reply_markup: {
           inline_keyboard: [[
