@@ -75,6 +75,8 @@ const bot = new Bot<BotContext>(process.env.TGWD_TOKEN || "");
 
 (async () => {
   bot.command("start", async ctx => {
+  	// ignore non-direct-message senario
+    if (ctx.chat.type !== "private") return
     await ctx.reply(
       `${ctx.t("welcome_body")}\n${ctx.t("welcome_links_github")} · ${ctx.t("welcome_links_help")} · ${ctx.t("welcome_links_community")}`,
       {
