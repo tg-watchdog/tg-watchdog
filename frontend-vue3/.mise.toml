@@ -2,7 +2,7 @@
 # Inherits from root .mise.toml and adds frontend-specific settings
 
 [tools]
-node = "22.22.0"
+node = "22.23.2"
 
 [env]
 # Frontend development settings
