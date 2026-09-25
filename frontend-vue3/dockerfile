@@ -1,5 +1,5 @@
 # 选择一个基础镜像
-FROM node:18
+FROM node:24
 
 # 决定用户
 USER root
