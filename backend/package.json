@@ -13,7 +13,7 @@
 		"@types/koa": "^3.0.0",
 		"@types/koa__cors": "^5.0.0",
 		"@types/koa-router": "^7.4.4",
-		"@types/node": "^18.0.0",
+		"@types/node": "^24.0.0",
 		"axios": "^1.13.5",
 		"crypto": "^1.0.1",
 		"debug": "^4.3.4",
